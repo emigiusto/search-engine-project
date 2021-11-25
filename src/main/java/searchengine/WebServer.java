@@ -48,6 +48,11 @@ public class WebServer {
     System.out.println("");
   }
 
+    /**
+   * <p>This methods initializes a Web server with a given port</p>
+   * <p>Defining Routing</p>
+   * @param port port where the server will be running
+   */
   public void initializeServer(int port){
     try {
       server = HttpServer.create(new InetSocketAddress(port), BACKLOG);
