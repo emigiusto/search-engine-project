@@ -9,8 +9,7 @@ import java.util.List;
 
 public class DatabaseHandler {
     private List<WebPage> pages = new ArrayList<>();
-    private List<String> lines = new ArrayList<>();
-
+    
     public DatabaseHandler(String filename){
         try {
             fetchDatabase(filename);
@@ -18,9 +17,11 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
     }
+    
 
     public void fetchDatabase(String filename) throws IOException{
         try {
+            List<String> lines = new ArrayList<>();
             lines = Files.readAllLines(Paths.get(filename));
             var lastIndex = lines.size();
             for (var i = lines.size() - 1; i >= 0; --i) {
@@ -36,9 +37,5 @@ public class DatabaseHandler {
 
     public  List<WebPage> getPages() {
         return pages;
-    }
-
-    public List<String> getLines() {
-        return lines;
     }
 }
