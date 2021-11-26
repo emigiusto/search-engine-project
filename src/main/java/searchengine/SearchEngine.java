@@ -5,11 +5,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class SearchEngine {
-    private List<List<String>> pages = new ArrayList<>();
+    private List<WebPage> pages = new ArrayList<>();
     private List<String> lines = new ArrayList<>();
 
     public SearchEngine(String filename) {
@@ -26,7 +25,7 @@ public class SearchEngine {
             var lastIndex = lines.size();
             for (var i = lines.size() - 1; i >= 0; --i) {
                 if (lines.get(i).startsWith("*PAGE")) {
-                pages.add(lines.subList(i, lastIndex));
+                pages.add(new WebPage(lines.subList(i+1, lastIndex), lines.get(i).substring(6,lines.get(i).length())));
                 lastIndex = i;
                 }
             }
@@ -35,7 +34,7 @@ public class SearchEngine {
         }
     }
 
-    public  List<List<String>> getPages() {
+    public  List<WebPage> getPages() {
         return pages;
     }
 

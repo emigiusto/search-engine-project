@@ -48,6 +48,11 @@ public class WebServer {
     System.out.println("");
   }
 
+    /**
+   * <p>This methods initializes a Web server with a given port</p>
+   * <p>Defining Routing</p>
+   * @param port port where the server will be running
+   */
   public void initializeServer(int port){
     try {
       server = HttpServer.create(new InetSocketAddress(port), BACKLOG);
@@ -74,19 +79,20 @@ public class WebServer {
     var searchTerm = io.getRequestURI().getRawQuery().split("=")[1];
     var response = new ArrayList<String>();
     for (var page : search2(searchTerm)) {
-      response.add(String.format("{\"url\": \"%s\", \"title\": \"%s\"}",page.get(0).substring(6), page.get(1)));
+      response.add(String.format("{\"url\": \"%s\", \"title\": \"%s\"}",page.getURL(), page.getContent().get(0)));
     }
     var bytes = response.toString().getBytes(CHARSET);
     respond(io, 200, "application/json", bytes);
   }
 
-  public List<List<String>> search2(String searchTerm) {
-    var result = new ArrayList<List<String>>();
+  public List<WebPage> search2(String searchTerm) {
+    var result = new ArrayList<WebPage>();
     for (var page : searchEngine.getPages()) {
       if (page.contains(searchTerm)) {
         result.add(page);
       }
     }
+    
     return result;
   }
 
@@ -113,8 +119,8 @@ public class WebServer {
 
   public static void main(final String... args) throws IOException {
     var filename = Files.readString(Paths.get("config.txt")).strip();
-    /*var newServer = */new WebServer(PORT, filename);
-    //newServer.search2("danish");
+    var newServer = new WebServer(PORT, filename);
+    newServer.search2("danish");
 
   }
 }
