@@ -26,26 +26,6 @@ public class WebServer {
   public WebServer(int port, String filename){
     initializeServer(port);
     searchEngine = new SearchEngine(filename);
-
-    /*
-    try {
-    
-      List<String> lines = Files.readAllLines(Paths.get(filename));
-      var lastIndex = lines.size();
-      for (var i = lines.size() - 1; i >= 0; --i) {
-        if (lines.get(i).startsWith("*PAGE")) {
-          pages.add(lines.subList(i, lastIndex));
-          lastIndex = i;
-        }
-      */
-        
-        /*
-      }
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
-    */
-    System.out.println("");
   }
 
     /**

@@ -6,9 +6,12 @@ import java.util.List;
 public class WebPage {
     private List<String> content;
     private String url;
+    private String title;
+
 
     public WebPage(List<String> content, String url){
-        this.content = content;
+        this.title = content.get(0);
+        this.content = content.subList(1, content.size());
         this.url = url;
     }
 
@@ -21,5 +24,8 @@ public class WebPage {
     }
     public String getURL(){
         return url;
+    }
+    public String getTitle(){
+        return title;
     }
 }
