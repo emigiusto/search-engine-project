@@ -42,7 +42,7 @@ dependencies {
 
 application {
     // Define the main class for the application
-	mainClass.set("searchengine.WebServer")
+	mainClass.set("searchengine.Main")
 }
 
 // test {
@@ -94,7 +94,7 @@ task jmhQuick(dependsOn: [buildConf, jmhJar], type: JavaExec) {
 
 run {
     dependsOn buildConf
-    mainClassName = 'searchengine.WebServer'
+    mainClassName = 'searchengine.Main'
 }
 tasks.named('test') {
     // Use junit platform for unit tests.
