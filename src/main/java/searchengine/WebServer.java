@@ -78,23 +78,13 @@ public class WebServer {
   public void search(HttpExchange io) {
     var searchTerm = io.getRequestURI().getRawQuery().split("=")[1];
     var response = new ArrayList<String>();
-    for (var page : search2(searchTerm)) {
+    for (var page : searchEngine.search(searchTerm)) {
       response.add(String.format("{\"url\": \"%s\", \"title\": \"%s\"}",page.getURL(), page.getContent().get(0)));
     }
     var bytes = response.toString().getBytes(CHARSET);
     respond(io, 200, "application/json", bytes);
   }
 
-  public List<WebPage> search2(String searchTerm) {
-    var result = new ArrayList<WebPage>();
-    for (var page : searchEngine.getPages()) {
-      if (page.contains(searchTerm)) {
-        result.add(page);
-      }
-    }
-    
-    return result;
-  }
 
   public byte[] getFile(String filename) {
     try {
@@ -120,7 +110,6 @@ public class WebServer {
   public static void main(final String... args) throws IOException {
     var filename = Files.readString(Paths.get("config.txt")).strip();
     var newServer = new WebServer(PORT, filename);
-    newServer.search2("danish");
 
   }
 }
