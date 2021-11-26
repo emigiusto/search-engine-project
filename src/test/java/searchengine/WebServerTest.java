@@ -56,6 +56,7 @@ class WebServerTest {
             httpGet(baseURL + "word4"));
     }
 
+
     private String httpGet(String url) {
         var uri = URI.create(url);
         var client = HttpClient.newHttpClient();
