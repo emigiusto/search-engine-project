@@ -59,7 +59,7 @@ public class WebServer {
     var searchTerm = io.getRequestURI().getRawQuery().split("=")[1];
     var response = new ArrayList<String>();
     for (var page : searchEngine.search(searchTerm)) {
-      response.add(String.format("{\"url\": \"%s\", \"title\": \"%s\"}",page.getURL(), page.getContent().get(0)));
+      response.add(String.format("{\"url\": \"%s\", \"title\": \"%s\"}",page.getURL(), page.getTitle()));
     }
     var bytes = response.toString().getBytes(CHARSET);
     respond(io, 200, "application/json", bytes);

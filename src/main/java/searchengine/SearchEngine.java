@@ -5,25 +5,22 @@ import java.util.List;
 
 import searchengine.dba.Indexer;
 import searchengine.dba.WebPage;
+import searchengine.dba.Word;
 
 public class SearchEngine {
-    private Indexer database;
+    private Indexer indexer;
 
     public SearchEngine(String filename) {
         try {
-            database = new Indexer(filename);
+            indexer = new Indexer(filename);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public List<WebPage> search(String searchTerm) {
-        var result = new ArrayList<WebPage>();
-        for (var page : database.getPages()) {
-            if (page.contains(searchTerm)) {
-                result.add(page);
-            }
-        }
+        //Converts HashSet to ArrayList and returns result
+        var result = new ArrayList<WebPage>(indexer.getWord(searchTerm).getAllWebPages());
         return result;
     }
 }

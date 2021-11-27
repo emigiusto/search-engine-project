@@ -5,12 +5,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.Map;
-import java.util.Set;
 
 public class Indexer {
     private List<WebPage> pages = new ArrayList<>();
@@ -57,7 +54,11 @@ public class Indexer {
         
     }
 
-    public  List<WebPage> getPages() {
+    public Word getWord(String word){
+        return invertedIndex.get(word);
+    }
+
+    public  List<WebPage> getAllPages() {
         return pages;
     }
 }

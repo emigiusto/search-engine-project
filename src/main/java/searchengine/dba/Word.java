@@ -1,6 +1,7 @@
 package searchengine.dba;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class Word {
     private HashMap<WebPage,Integer> webPagesFrequency = new HashMap<WebPage,Integer>();
@@ -30,6 +31,10 @@ public class Word {
 
     public HashMap<WebPage,Integer> getAllFrequencies(){
         return webPagesFrequency;
+    }
+
+    public Set<WebPage> getAllWebPages(){
+        return webPagesFrequency.keySet();
     }
 
     public String getTerm(){
