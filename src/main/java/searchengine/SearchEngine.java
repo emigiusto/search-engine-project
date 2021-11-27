@@ -5,7 +5,6 @@ import java.util.List;
 
 import searchengine.dba.Indexer;
 import searchengine.dba.WebPage;
-import searchengine.dba.Word;
 
 public class SearchEngine {
     private Indexer indexer;
