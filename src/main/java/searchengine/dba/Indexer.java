@@ -1,4 +1,4 @@
-package searchengine;
+package searchengine.dba;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -6,15 +6,17 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.Map;
+import java.util.Set;
 
-public class DatabaseHandler {
+public class Indexer {
     private List<WebPage> pages = new ArrayList<>();
-    private Map<String,HashMap<WebPage,Integer>> invertedIndex = new TreeMap<String,HashMap<WebPage,Integer>>();
+    private Map<String,Word> invertedIndex = new TreeMap<String,Word>();
 
-    public DatabaseHandler(String filename){
+    public Indexer(String filename){
         try {
             fetchDatabase(filename);
             createInvertedIndex();
@@ -41,24 +43,12 @@ public class DatabaseHandler {
     public void createInvertedIndex() {
         try {
             for (WebPage webPage : pages) {
-                System.out.println("aaaa");
                 for (String word : webPage.getContent()) {
                     if (invertedIndex.containsKey(word)) {
-
-                        var currentRecord = invertedIndex.get(word);
-                        if (currentRecord.containsKey(webPage)) {
-                            currentRecord.put(webPage,currentRecord.get(webPage)+1);
-                            invertedIndex.put(word,currentRecord);
-                        } else {
-                            currentRecord.put(webPage,1);
-                            invertedIndex.put(word,currentRecord);
-                        }
+                        invertedIndex.get(word).addOcurrence(webPage);
                     } else {
-                        var newEntry = new HashMap<WebPage,Integer>();
-                            newEntry.put(webPage,1);
-                        invertedIndex.put(word,newEntry);
+                        invertedIndex.put(word,new Word(word,webPage));
                     }
-                    
                 }
             }
         } catch (Exception e) {

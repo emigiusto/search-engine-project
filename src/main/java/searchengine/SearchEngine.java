@@ -3,12 +3,15 @@ package searchengine;
 import java.util.ArrayList;
 import java.util.List;
 
+import searchengine.dba.Indexer;
+import searchengine.dba.WebPage;
+
 public class SearchEngine {
-    private DatabaseHandler database;
+    private Indexer database;
 
     public SearchEngine(String filename) {
         try {
-            database = new DatabaseHandler(filename);
+            database = new Indexer(filename);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
