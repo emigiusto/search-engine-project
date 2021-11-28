@@ -12,7 +12,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 
 public class WebServer {
-  static final int PORT = 8080;
+  //static final int PORT = 8080;
   static final int BACKLOG = 0;
   static final Charset CHARSET = StandardCharsets.UTF_8;
 
@@ -20,7 +20,7 @@ public class WebServer {
   private HttpServer server;
   private SearchEngine searchEngine;
 
-  public WebServer(int port, String filename){
+  public WebServer(int port, String filename) throws IOException{
     initializeServer(port);
     searchEngine = new SearchEngine(filename);
   }
@@ -84,9 +84,13 @@ public class WebServer {
     }
   }
 
-  public static void main(final String... args) throws IOException {
+  public HttpServer getServer(){
+    return server;
+  }
+
+/*  public static void main(final String... args) throws IOException {
     var filename = Files.readString(Paths.get("config.txt")).strip();
     var newServer = new WebServer(PORT, filename);
 
-  }
+  }*/
 }
