@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class Word {
-    private HashMap<WebPage,Integer> webPagesFrequency = new HashMap<WebPage,Integer>();
+    private HashMap<WebPage,Integer> webPagesFrequency = new HashMap<WebPage,Integer>(); 
     private String term;
 
     public Word(String term, WebPage webPage){
