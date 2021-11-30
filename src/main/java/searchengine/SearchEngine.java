@@ -9,6 +9,10 @@ import searchengine.dba.WebPage;
 public class SearchEngine {
     private Indexer indexer;
 
+  
+  /** 
+   * Creates new indexer object from String filename */  
+
     public SearchEngine(String filename) {
         try {
             indexer = new Indexer(filename);
@@ -16,6 +20,9 @@ public class SearchEngine {
             System.out.println(e.getMessage());
         }
     }
+
+    /** 
+   * Creates a list of webpages containing searchTerm */  
 
     public List<WebPage> search(String searchTerm) {
         //Converts HashSet to ArrayList and returns result
