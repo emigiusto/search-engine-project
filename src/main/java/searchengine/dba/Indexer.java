@@ -45,7 +45,7 @@ public class Indexer {
 
 
 /** 
-   * Foreach webpage  */  
+   * invertedIndex maps words from webPage using addOccurence */  
     public void createInvertedIndex() {
         try {
             for (WebPage webPage : pages) {
