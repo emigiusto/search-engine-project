@@ -3,13 +3,9 @@ package searchengine.dba;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-
-
 
 public class Input {
     private String originalInput;
@@ -26,13 +22,15 @@ public class Input {
             split();
             trim();
             lowerCase();
+            removeStopWords();
             stemm();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-        
 
+   
+    
     public void split() {
         inputList = Arrays.asList(originalInput.split("\\s+"));
         originalInputList = Arrays.asList(originalInput.split("\\s+"));
@@ -44,6 +42,10 @@ public class Input {
 
     public void lowerCase() {
         inputList = inputList.stream().map(string -> string.toLowerCase()).collect(Collectors.toList());
+    }
+
+    public void removeStopWords() {
+        inputList = inputList.stream().filter(string -> stopWords.contains(string)).collect(Collectors.toList());
     }
 
     public void stemm() {
