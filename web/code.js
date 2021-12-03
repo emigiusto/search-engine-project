@@ -1,4 +1,15 @@
 /* jshint esversion: 6 */
+
+
+/* This code will trigger a search when enter is pressed */
+var input = document.getElementById("searchbox");
+input.addEventListener("keyup", function(event) {
+  if (event.key === 'Enter') {
+   event.preventDefault();
+   document.getElementById("searchbutton").click();
+  }
+});
+
 document.getElementById('searchbutton').onclick =  () => {
    
     fetch("/search?q=" + document.getElementById('searchbox').value)
@@ -25,16 +36,20 @@ document.getElementById('searchbutton').onclick =  () => {
                 `<li><a href="${page.url}">${page.title}</a></li>`)
                 .join("\n");
             document.getElementById("urllist").innerHTML = `<ul>${results}</ul>`;
+            
 
         });
-
-    if (document.getElementById("urllist").innerHTML == "") {
-        document.getElementById("responsesize").innerHTML =
-            "<p>Sorry, no results found</p>";
-            document.getElementById("responsesize").style =
-            "color: crimson;"
-       
+            if (document.getElementById("urllist").innerHTML == "") {
+                document.getElementById("responsesize").innerHTML =
+                    "<p>Sorry, no results found</p>";
+                    document.getElementById("responsesize").style =
+                    "color: crimson;"
+               
            
+            }
 
-    }
+
+        ;
+
+  
 };
