@@ -76,9 +76,18 @@ input[type="search"].focus {
    
     margin-left: 40%;
     text-align: center;
-    background-color:aliceblue;
+    background-color:rgba(180, 216, 235, 0.324);
     pointer-events: painted;
    
+
+}
+
+#searchbox:hover {
+   
+ 
+    background-color:rgb(247, 239, 147);
+    box-shadow: 0 0 5px 1px #969696;
+  
 
 }
 
@@ -96,9 +105,11 @@ input[type="search"].focus {
 }
 
 #searchblock {
+  font-family: 'Courier New', Courier, monospace;  
   padding-top: 2%;  
-  background-color:cornsilk;
+  background-color:teal;
   height: 300px;
+  opacity: 0.9;
 
 
 }
