@@ -51,4 +51,26 @@ public class Input {
     public void stemm() {
         stemmedWords =  inputList.stream().map(string -> stemmer.stemWord(string)).collect(Collectors.toList());
     }
+
+    //Getters
+    public List<String> getInputList() {
+        return inputList;
+    }
+
+    public List<String> getStemmedWords() {
+        return stemmedWords;
+    }
+
+    public List<String> getStopWords() {
+        return stopWords;
+    }
+
+    public String getOriginalInput() {
+        return originalInput;
+    }
+
+    public List<String> getOriginalInputList() {
+        return originalInputList;
+    }
+
 }
