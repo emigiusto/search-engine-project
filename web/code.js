@@ -38,18 +38,15 @@ document.getElementById('searchbutton').onclick =  () => {
             document.getElementById("urllist").innerHTML = `<ul>${results}</ul>`;
             
 
-        });
-            if (document.getElementById("urllist").innerHTML == "") {
+        }).catch((err) => console.log("Sorry, no results found"));
+
+             document.getElementById("urllist").innerHTML ="";
                 document.getElementById("responsesize").innerHTML =
                     "<p>Sorry, no results found</p>";
                     document.getElementById("responsesize").style =
-                    "color: crimson;"
+                    "color: crimson;";
                
            
-            }
-
-
-        ;
 
   
 };
