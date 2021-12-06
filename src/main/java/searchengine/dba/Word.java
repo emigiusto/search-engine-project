@@ -4,14 +4,17 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class Word {
-    private HashMap<WebPage,Integer> webPagesFrequency = new HashMap<WebPage,Integer>();
+    private HashMap<WebPage,Integer> webPagesFrequency = new HashMap<WebPage,Integer>(); 
     private String term;
 
     public Word(String term, WebPage webPage){
         this.term = term;
-        addOcurrence(webPage);
+        addOcurrence(webPage); 
     }
 
+
+/** 
+ * This method maps webpages to currentFrequency and increments index */
     public void addOcurrence(WebPage webPage){
         if (webPagesFrequency.containsKey(webPage)) {
             var currentFrequency = webPagesFrequency.get(webPage);

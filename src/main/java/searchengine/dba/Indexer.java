@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.Map;
 
+ 
 public class Indexer {
     private List<WebPage> pages = new ArrayList<>();
     private Map<String,Word> invertedIndex = new TreeMap<String,Word>();
@@ -25,6 +26,10 @@ public class Indexer {
         }
     }
 
+ 
+
+/** 
+   * Retrieve all lines in database starting with "*PAGE" */  
     public void fetchDatabase(String filename) throws IOException{
         try(BufferedReader bufferReader = new BufferedReader(new FileReader(filename))) 
         {
@@ -58,6 +63,8 @@ public class Indexer {
         }
     }
 
+/** 
+   * invertedIndex maps words from webPage using addOccurence */  
     public void createInvertedIndex(WebPage webPage, List<String> content) {
         try {
             for (String word : content) {
