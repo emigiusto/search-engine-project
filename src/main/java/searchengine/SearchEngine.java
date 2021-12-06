@@ -18,7 +18,6 @@ public class SearchEngine {
     }
 
     public List<WebPage> search(String searchTerm) {
-        //Converts HashSet to ArrayList and returns result
         var result = new ArrayList<WebPage>(indexer.getWord(searchTerm).getAllWebPages());
         return result;
     }
