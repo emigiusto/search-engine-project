@@ -29,8 +29,6 @@ public class Input {
         }
     }
 
-   
-    
     public void split() {
         inputList = Arrays.asList(originalInput.split("\\s+"));
         originalInputList = Arrays.asList(originalInput.split("\\s+"));
@@ -72,5 +70,4 @@ public class Input {
     public List<String> getOriginalInputList() {
         return originalInputList;
     }
-
 }
