@@ -1,6 +1,6 @@
 package searchengine.dba;
 
-import java.util.List;
+//import java.util.List;
 
 public class WebPage {
     //private List<String> content;
