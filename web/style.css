@@ -66,6 +66,7 @@ input[type="search"].focus {
 }
 
 #headline {
+    color:black;
     margin-left: 40%;
     padding-top: 1%;  
     padding-bottom: 1%;
@@ -87,6 +88,7 @@ input[type="search"].focus {
  
     background-color:rgb(247, 239, 147);
     box-shadow: 0 0 5px 1px #969696;
+    transition: 0.5s;
   
 
 }
@@ -107,7 +109,7 @@ input[type="search"].focus {
 #searchblock {
   font-family: 'Courier New', Courier, monospace;  
   padding-top: 2%;  
-  background-color:teal;
+  background-color:rgb(133, 186, 186);
   height: 300px;
   opacity: 0.9;
 
