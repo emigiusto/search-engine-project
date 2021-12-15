@@ -1,6 +1,7 @@
 package searchengine;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -32,16 +33,19 @@ public class SearchEngine {
     }
 
     public void splittingInput() {
-        searchInput.split(" ");
-        searchInput.split("or");
-    }
+        String[] splittedByOr = searchInput.split("(?i) or ");
     
-    public double getPageScore(Word word, WebPage webPage) {
-        
-        return word.getWebPageFrequency(webPage) / word.getTotalFrequency();
-        
+        for (String andSentence : splittedByOr) {
+            splittedInput.add(Arrays.asList(andSentence.split(" ")));
+        }
     }
 
+    public void name() {
+        for (List<String> listJoinedByAnd : splittedInput) {
+            
+        }
+    }
+    
     public Map<WebPage, Double> frequencyScore(String searchTerm) {
         Word wordSearched = indexer.getWord(searchTerm);
 
@@ -55,5 +59,9 @@ public class SearchEngine {
         return frequencyHits;
     }
 
-
+    public double getPageScore(Word word, WebPage webPage) {
+        
+        return word.getWebPageFrequency(webPage) / word.getTotalFrequency();
+    }
+    
 }
