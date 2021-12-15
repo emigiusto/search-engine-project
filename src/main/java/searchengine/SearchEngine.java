@@ -18,6 +18,10 @@ public class SearchEngine {
     private String searchInput;
     private List<List<String>> splittedInput = new ArrayList<>();
 
+  
+  /** 
+   * Creates new indexer object from String filename */  
+
     public SearchEngine(String filename) {
         try {
             indexer = new Indexer(filename);
@@ -25,6 +29,9 @@ public class SearchEngine {
             System.out.println(e.getMessage());
         }
     }
+
+    /** 
+   * Creates a list of webpages containing searchTerm */  
 
     public List<WebPage> search(String searchTerm) {
         searchInput = searchTerm;
@@ -35,6 +42,7 @@ public class SearchEngine {
             .sorted(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()))
             .map(Map.Entry::getKey)
             .collect(Collectors.toList());
+
         return result;
     }
 

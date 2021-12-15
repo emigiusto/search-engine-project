@@ -9,9 +9,12 @@ public class Word {
 
     public Word(String term, WebPage webPage){
         this.term = term;
-        addOcurrence(webPage);
+        addOcurrence(webPage); 
     }
 
+
+/** 
+ * This method maps webpages to currentFrequency and increments index */
     public void addOcurrence(WebPage webPage){
         if (webPagesFrequency.containsKey(webPage)) {
             var currentFrequency = webPagesFrequency.get(webPage);
