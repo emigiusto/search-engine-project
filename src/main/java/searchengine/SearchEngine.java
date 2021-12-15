@@ -1,13 +1,9 @@
 package searchengine;
 
-import java.security.Key;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,7 +17,6 @@ public class SearchEngine {
     private Indexer indexer;
     private String searchInput;
     private List<List<String>> splittedInput = new ArrayList<>();
-    private Map<WebPage, Double> resultMap = new HashMap<>();
 
     public SearchEngine(String filename) {
         try {
@@ -40,8 +35,6 @@ public class SearchEngine {
             .sorted(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()))
             .map(Map.Entry::getKey)
             .collect(Collectors.toList());
-
-        //var result = new ArrayList<WebPage>(indexer.getWord(searchTerm).getAllWebPages());
         return result;
     }
 
@@ -49,14 +42,13 @@ public class SearchEngine {
         String[] splittedByOr = searchInput.split("(?i) or ");
     
         for (String andSentence : splittedByOr) {
-            splittedInput.add(Arrays.asList(andSentence.split(" ")));
+            splittedInput.add(Arrays.asList(andSentence.split("%20")));
         }
     }
 
     public HashMap<WebPage, Double> gatherWebpages() {
         List<HashMap<WebPage, Double>> mapsWithOrLogic = new ArrayList<>();
         for (List<String> listJoinedByAnd : splittedInput) {
-            //("Danish university or something else OR cookies oR mate");
             mapsWithOrLogic.add(getScoreMapWithANDlogic(listJoinedByAnd));
         }
         return getScoreMapWithORlogic(mapsWithOrLogic);
@@ -68,7 +60,6 @@ public class SearchEngine {
             if (indexer.getWord(term) != null) {
                 
                 Word wordSearched = indexer.getWord(term);
-                //("Danish university or something else OR cookies oR mate");
                 Set<WebPage> allWebPages = wordSearched.getAllWebPages();
                 for (WebPage webPage : allWebPages) {
                     if (mapOfWebPages.containsKey(webPage)) {
@@ -99,22 +90,7 @@ public class SearchEngine {
         return mapOfWebPages;
 }
 
-    public Map<WebPage, Double> frequencyScore(String searchTerm) {
-        Word wordSearched = indexer.getWord(searchTerm);
-
-        Set<WebPage> allWebPages = wordSearched.getAllWebPages();
-                
-        Map <WebPage, Double> frequencyHits = new HashMap<>();
-        for (WebPage webPage : allWebPages) {
-            var idfScore = getPageScore(wordSearched, webPage); 
-            resultMap.put(webPage, idfScore);
-        }
-        return frequencyHits;
-    }
-
     public double getPageScore(Word word, WebPage webPage) {
-        
         return (double) word.getWebPageFrequency(webPage) /(double) word.getTotalFrequency();
-    }
-    
+    } 
 }
