@@ -57,8 +57,6 @@ document.getElementById('searchbutton').onclick =  () => {
 /*AutoComplete*/
 
 
-
-
 var availableTags =  [
 "United States",
 "the",

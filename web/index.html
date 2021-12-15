@@ -34,42 +34,44 @@
 
 
 $( function() {
-
+// code to fetch keyword from variable 
     
-// $("#searchbox" ).autocomplete({
+$("#searchbox" ).autocomplete({
 
-//   source: out
-// });
-// } );
+  source: availableTags
+});
+} );
 
-let url = 'http://eruptfarpd.webcompose.dk/ac.json?alloworigin=false';
+// code to fetch data from json url 
 
-$( function() {
-    function log( message ) {
-      $( "<div>" ).text( message ).prependTo( "#log" );
-      $( "#log" ).scrollTop( 0 );
-    }
+// let url = 'http://ip.jsontest.com/';
+
+// $( function() {
+//     function log( message ) {
+//       $( "<div>" ).text( message ).prependTo( "#log" );
+//       $( "#log" ).scrollTop( 0 );
+//     }
  
-    $( "#searchbox" ).autocomplete({
-      source: function( request, response ) {
-        $.ajax( {
-          url: url,
-          dataType: "jsonp",
-          data: {
-            term: request.term
-          },
-          success: function( data ) {
-            response( data );
-          }
-        } );
-      },
-      minLength: 2,
-      select: function( event, ui ) {
-        log( "Selected: " + ui.item.value + " aka " + ui.item.id );
-      }
-    } );
-  } );
-})
+//     $( "#searchbox" ).autocomplete({
+//       source: function( request, response ) {
+//         $.ajax( {
+//           url: url,
+//           dataType: "jsonp",
+//           data: {
+//             term: request.term
+//           },
+//           success: function( data ) {
+//             response( data );
+//           }
+//         } );
+//       },
+//       minLength: 2,
+//       select: function( event, ui ) {
+//         log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+//       }
+//     } );
+//   } );
+// })
 
   </script>
 
