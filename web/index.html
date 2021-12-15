@@ -30,17 +30,49 @@
 <link rel="stylesheet" href="/resources/demos/style.css">
 
 
- <!-- (2) define two jquery functions we need (default input focus, and autocomplete) -->
-
 <script> 
+
 
 $( function() {
 
+    
+// $("#searchbox" ).autocomplete({
+
+//   source: out
+// });
+// } );
+
+let url = 'http://eruptfarpd.webcompose.dk/ac.json?alloworigin=false';
+
+$( function() {
+    function log( message ) {
+      $( "<div>" ).text( message ).prependTo( "#log" );
+      $( "#log" ).scrollTop( 0 );
+    }
+ 
     $( "#searchbox" ).autocomplete({
-        
-      source: availableTags
-    });
-  } );</script>
+      source: function( request, response ) {
+        $.ajax( {
+          url: url,
+          dataType: "jsonp",
+          data: {
+            term: request.term
+          },
+          success: function( data ) {
+            response( data );
+          }
+        } );
+      },
+      minLength: 2,
+      select: function( event, ui ) {
+        log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+      }
+    } );
+  } );
+})
+
+  </script>
+
 
 </head>
 
@@ -63,6 +95,11 @@ $( function() {
     <div id="error"></div>
     <div id="urllist"></div>
 
+
+ <div id="toTop">
+<a href="#searchbox">Back to search ▲</a>
+
+ </div>   
 </body>
 
 </html>

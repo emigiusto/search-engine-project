@@ -30,6 +30,9 @@ document.getElementById('searchbutton').onclick =  () => {
                     
                     document.getElementById("responsesize").style =
                     "color: darkgreen;"
+                    document.getElementById("toTop").style=
+                    "display: block;";
+                    
                     
             }
             let results = data.map((page) =>
@@ -45,16 +48,19 @@ document.getElementById('searchbutton').onclick =  () => {
                     "<p>Sorry, no results found</p>";
                     document.getElementById("responsesize").style =
                     "color: crimson;";
-               
-           
-
-  
+                    
+                       
 };
+
+    
 
 /*AutoComplete*/
 
-var availableTags = [
-    "United States",
+
+
+
+var availableTags =  [
+"United States",
 "the",
 "united",
 "states",
@@ -322,5 +328,7 @@ var availableTags = [
 "ituniversitetet",
 "i",
   ];
+
+
 
 
