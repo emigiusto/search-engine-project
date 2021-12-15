@@ -13,6 +13,8 @@ import searchengine.dba.Word;
 
 public class SearchEngine {
     private Indexer indexer;
+    private String searchInput;
+    private List<List<String>> splittedInput = new ArrayList<>();
 
     public SearchEngine(String filename) {
         try {
@@ -23,23 +25,35 @@ public class SearchEngine {
     }
 
     public List<WebPage> search(String searchTerm) {
-        //Converts HashSet to ArrayList and returns result
+        searchInput = searchTerm;
+        splittingInput();
         var result = new ArrayList<WebPage>(indexer.getWord(searchTerm).getAllWebPages());
         return result;
     }
+
+    public void splittingInput() {
+        searchInput.split(" ");
+        searchInput.split("or");
+    }
     
+    public double getPageScore(Word word, WebPage webPage) {
+        
+        return word.getWebPageFrequency(webPage) / word.getTotalFrequency();
+        
+    }
+
     public Map<WebPage, Double> frequencyScore(String searchTerm) {
         Word wordSearched = indexer.getWord(searchTerm);
 
         Set<WebPage> allWebPages = wordSearched.getAllWebPages();
-        double totalFrequency = wordSearched.getTotalFrequency();
-        
+                
         Map <WebPage, Double> frequencyHits = new HashMap<>();
         for (WebPage webPage : allWebPages) {
-            double frequency = wordSearched.getWebPageFrequency(webPage);
-            double idfScore = frequency / totalFrequency;
+            var idfScore = getPageScore(wordSearched, webPage); 
             frequencyHits.put(webPage, idfScore);
         }
         return frequencyHits;
     }
+
+
 }
