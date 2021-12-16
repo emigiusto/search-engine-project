@@ -134,7 +134,7 @@ public class Stemmer {
     }
 
     String stemStep1c(String input) {
-        if (input.endsWith("y")) {
+        if (input.endsWith("y") && input.length()>2) {
             String stem = input.substring(0, input.length() - 1);
             String letterTypes = getLetterTypes(stem);
             var last2 = input.substring(stem.length()-2, stem.length());
