@@ -42,7 +42,7 @@ public class SearchEngine {
             .collect(Collectors.toList());
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
-        System.out.println("Took " + timeElapsed/1000 + " seconds to run the  search");
+        System.out.println("Took " + timeElapsed + " miliseconds to run the  search");
         return result;
     }
 
