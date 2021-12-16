@@ -16,11 +16,7 @@ import searchengine.dba.Word;
 public class SearchEngine {
     private Indexer indexer;
     private String searchInput;
-    private List<List<String>> splittedInput = new ArrayList<>();
-
-  
-  /** 
-   * Creates new indexer object from String filename */  
+    private List<List<String>> splittedInput;
 
     public SearchEngine(String filename) {
         try {
@@ -30,19 +26,20 @@ public class SearchEngine {
         }
     }
 
-    /** 
-   * Creates a list of webpages containing searchTerm */  
-
     public List<WebPage> search(String searchTerm) {
+        long start = System.currentTimeMillis();
         searchInput = searchTerm;
+        splittedInput = new ArrayList<>();
         splittingInput();
         HashMap<WebPage, Double> unorderedHashMap = gatherWebpages();
-
         List<WebPage> result = unorderedHashMap.entrySet().stream()
             .sorted(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()))
             .map(Map.Entry::getKey)
+            .limit(30)
             .collect(Collectors.toList());
-
+        long finish = System.currentTimeMillis();
+        long timeElapsed = finish - start;
+        System.out.println("Took " + timeElapsed/1000 + " seconds to run the  search");
         return result;
     }
 
@@ -66,7 +63,6 @@ public class SearchEngine {
         HashMap<WebPage,Double> mapOfWebPages = new HashMap<>();
         for (String term : listWithANDogic) {
             if (indexer.getWord(term) != null) {
-                
                 Word wordSearched = indexer.getWord(term);
                 Set<WebPage> allWebPages = wordSearched.getAllWebPages();
                 for (WebPage webPage : allWebPages) {
@@ -87,9 +83,7 @@ public class SearchEngine {
         for (HashMap<WebPage,Double> hashMap : mapsWithOrLogic) {
             for (WebPage webPage : hashMap.keySet()) {
                 if (mapOfWebPages.containsKey(webPage)) {
-                    
                     mapOfWebPages.put(webPage,Math.max(hashMap.get(webPage) , mapOfWebPages.get(webPage)));
-                
                 } else {
                     mapOfWebPages.put(webPage, hashMap.get(webPage));
                 }
@@ -98,7 +92,8 @@ public class SearchEngine {
         return mapOfWebPages;
 }
 
+
     public double getPageScore(Word word, WebPage webPage) {
         return (double) word.getWebPageFrequency(webPage) /(double) word.getTotalFrequency();
-    } 
+    }
 }
