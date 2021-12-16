@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import searchengine.dba.Indexer;
+import searchengine.dba.Stemmer;
 import searchengine.dba.WebPage;
 import searchengine.dba.Word;
 
@@ -17,10 +18,12 @@ public class SearchEngine {
     private Indexer indexer;
     private String searchInput;
     private List<List<String>> splittedInput;
+    private Stemmer stemmer;
 
     public SearchEngine(String filename) {
         try {
             indexer = new Indexer(filename);
+            stemmer = new Stemmer();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -35,7 +38,7 @@ public class SearchEngine {
         List<WebPage> result = unorderedHashMap.entrySet().stream()
             .sorted(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()))
             .map(Map.Entry::getKey)
-            .limit(30)
+            //.limit(30)
             .collect(Collectors.toList());
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
@@ -62,8 +65,9 @@ public class SearchEngine {
     public HashMap<WebPage,Double> getScoreMapWithANDlogic(List<String> listWithANDogic){
         HashMap<WebPage,Double> mapOfWebPages = new HashMap<>();
         for (String term : listWithANDogic) {
-            if (indexer.getWord(term) != null) {
-                Word wordSearched = indexer.getWord(term);
+            var termProcessed =  stemmer.stemWord(term.replaceAll("[.,!\\?´¨^*:;{&¤}+á¼ï»î±î¿ä]", "").toLowerCase());
+            if (indexer.getWord(termProcessed) != null) {
+                Word wordSearched = indexer.getWord(termProcessed);
                 Set<WebPage> allWebPages = wordSearched.getAllWebPages();
                 for (WebPage webPage : allWebPages) {
                     if (mapOfWebPages.containsKey(webPage)) {
