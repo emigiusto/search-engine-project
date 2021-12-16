@@ -3,19 +3,23 @@ package searchengine.dba;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.TreeMap;
 import java.util.Map;
 
- 
 public class Indexer {
     private List<WebPage> pages = new ArrayList<>();
-    private Map<String,Word> invertedIndex = new TreeMap<String,Word>();
+    private Map<String,Word> invertedIndex = new HashMap<String,Word>();
+    private Stemmer stemmer = new Stemmer();
+    private List<String> stopWords;
 
     public Indexer(String filename){
         try {
             long start = System.currentTimeMillis();
+            stopWords = Files.readAllLines(Paths.get("data/stop-words.txt"));
             fetchDatabase(filename);
             long finish = System.currentTimeMillis();
             long timeElapsed = finish - start;
@@ -25,8 +29,6 @@ public class Indexer {
             e.printStackTrace();
         }
     }
-
- 
 
 /** 
    * Retrieve all lines in database starting with "*PAGE" */  
@@ -45,8 +47,8 @@ public class Indexer {
                         nextLine = bufferReader.readLine();
                         condition = (nextLine != null) && (!(nextLine.startsWith("*PAGE")));
                     }
-                    if (content.size()>2) {
-                        createInvertedIndex(new WebPage(content.get(0), line.substring(6)), content);
+                    if (content.size()>1) {
+                        createInvertedIndex(new WebPage(content.get(0), line.substring(6)), content.subList(1, content.size()));
                         pageCounter++;
                     } else {
                         System.out.println("page " + line.substring(6) + " has not been indexed");
@@ -68,16 +70,24 @@ public class Indexer {
     public void createInvertedIndex(WebPage webPage, List<String> content) {
         try {
             for (String word : content) {
-                if (invertedIndex.containsKey(word)) {
-                    invertedIndex.get(word).addOcurrence(webPage);
-                } else {
-                    invertedIndex.put(word,new Word(word,webPage));
+                var reformattedWord = clean(word);
+                if (reformattedWord.length()>0) {
+                    if (invertedIndex.containsKey(reformattedWord)) {
+                        invertedIndex.get(reformattedWord).addOcurrence(webPage);
+                    } else {
+                        invertedIndex.put(reformattedWord,new Word(reformattedWord,webPage));
+                    }
                 }
             }
         } catch (Exception e) {
             System.out.println("error in createInvertedIndex");
             System.out.println(e.getMessage());
         }
+    }
+
+    public String clean(String word) {
+        var wordTrimmedLowerCase = word.replaceAll("[.,!\\?´¨^*:;{&¤}+á¼ï»î±î¿ä]", "").toLowerCase();
+        return stopWords.contains(wordTrimmedLowerCase) ? "" : stemmer.stemWord(wordTrimmedLowerCase);
     }
 
     public Word getWord(String word){
