@@ -37,7 +37,7 @@ class WebPageTest {
     @DisplayName("The class Constructor should correctly split the arrayList received as parameter in title and content")
     void testConstructor() {
         var webPage2 = new WebPage(title2, "https:www.example.com");
-        assertEquals(webPage2.getTitle(),"Title2","Title should be equal to the first element in the ArrayList provided as parameter");
+        assertEquals(webPage2.getTitle(),"Example2","Title should be equal to Example2");
         assertEquals(webPage2.getURL(),"https:www.example.com","URL should be equal to https:www.example.com");
     }
 
