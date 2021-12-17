@@ -6,10 +6,8 @@ import searchengine.dba.Word;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.TestInstance.Lifecycle;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,25 +16,16 @@ import org.junit.jupiter.api.TestInstance;
 
 @TestInstance(Lifecycle.PER_CLASS)
 class WordTest {
-    List<String> content1, content2;
+    String title1, title2;
     WebPage webPage1,webPage2;
     
     @BeforeEach                                         
     void setUp() {
-        content1 = new ArrayList<String>(); 
-        content1.add("This");
-        content1.add("is");
-        content1.add("a");
-        content1.add("test");
-        content2 = new ArrayList<String>(); 
-        content2.add("This");
-        content2.add("is");
-        content2.add("the");
-        content2.add("second");
-        content2.add("test");
+        title1 = "Example1";
+        title2 = "Example2";
 
-        webPage1 = new WebPage(content1, "https:www.example.com");
-        webPage2 = new WebPage(content2, "https:www.example2.com");
+        webPage1 = new WebPage(title1, "https:www.example.com");
+        webPage2 = new WebPage(title2, "https:www.example2.com");
     }
 
     @Test
