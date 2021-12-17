@@ -13,6 +13,19 @@
     justify-content: center;
 }
 
+.ui-autocomplete-loading {
+    background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
+  }
+
+
+#toTop {
+padding-top: 2%;    
+text-align: center;
+display: none;
+
+
+}  
+
 
 
 #responsesize{
@@ -66,6 +79,7 @@ input[type="search"].focus {
 #headline {
     margin: auto;
     text-align: center;
+    color:black;
     padding-top: 1%;  
     padding-bottom: 1%;
 
@@ -81,6 +95,7 @@ input[type="search"].focus {
 #searchbox:hover {
     background-color:rgb(247, 239, 147);
     box-shadow: 0 0 5px 1px #969696;
+    transition: 0.5s;
 }
 
 #searchbutton {
@@ -101,6 +116,7 @@ input[type="search"].focus {
   padding-top: 2%;  
   background-color:teal;
   padding: 80px 0 60px 0;
+  background-color:rgb(133, 186, 186);
   opacity: 0.9;
 }
 
