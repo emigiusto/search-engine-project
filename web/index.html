@@ -39,7 +39,9 @@ $( function() {
 $("#searchbox" ).autocomplete({
 
   source: result,
-  minLength: 4,
+
+  // initiate autocomplete when 3 letter is typed
+  minLength: 3,
 //   select: function( event, ui ) {
 //         log( "Selected: " + ui.item.value + " aka " + ui.item.id );
 //       }

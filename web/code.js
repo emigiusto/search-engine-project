@@ -54,6 +54,7 @@ document.getElementById('searchbutton').onclick =  () => {
 
 /*AutoComplete*/
 
+/* import data from local txt file */
 
   var stringData = $.ajax({
     mode: 'cors',
@@ -61,12 +62,13 @@ document.getElementById('searchbutton').onclick =  () => {
     async: false
  }).responseText;
 
-//Split values of string data
+/* split values by new line */
+
 var stringArray = stringData.split("\n");
 // alert("Data Loaded: " + stringData);
 
 
-// Using Array.filter
+// Using Array.filter to get unique values
 const useFilter = stringArray => {
     return stringArray.filter((value, index, self) => {
       return self.indexOf(value) === index;

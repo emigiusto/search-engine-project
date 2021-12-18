@@ -40,6 +40,7 @@ public class WebServer {
       server.createContext(
           "/style.css", io -> respond(io, 200, "text/css", getFile("web/style.css")));
           server.createContext(
+          
           "/autocomplete.txt", io -> respond(io, 200, "text/plain", getFile("web/autocomplete.txt")));
       server.start();
       String msg = " WebServer running on http://localhost:" + port + " ";
