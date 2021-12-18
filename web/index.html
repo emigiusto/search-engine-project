@@ -38,40 +38,13 @@ $( function() {
     
 $("#searchbox" ).autocomplete({
 
-  source: availableTags
-});
-} );
-
-// code to fetch data from json url 
-
-// let url = 'http://ip.jsontest.com/';
-
-// $( function() {
-//     function log( message ) {
-//       $( "<div>" ).text( message ).prependTo( "#log" );
-//       $( "#log" ).scrollTop( 0 );
-//     }
- 
-//     $( "#searchbox" ).autocomplete({
-//       source: function( request, response ) {
-//         $.ajax( {
-//           url: url,
-//           dataType: "jsonp",
-//           data: {
-//             term: request.term
-//           },
-//           success: function( data ) {
-//             response( data );
-//           }
-//         } );
-//       },
-//       minLength: 2,
-//       select: function( event, ui ) {
+  source: result,
+  minLength: 4,
+//   select: function( event, ui ) {
 //         log( "Selected: " + ui.item.value + " aka " + ui.item.id );
 //       }
-//     } );
-//   } );
-// })
+});
+} );
 
   </script>
 
