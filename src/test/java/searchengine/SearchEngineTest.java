@@ -66,9 +66,18 @@ class SearchEngineTest {
     @Test
     @DisplayName("getPageScore should calculate the score of the input")
     void testgetPageScore() {
+        var searchengine1 = new SearchEngine("data/enwiki-tiny.txt");
+        WebPage testWebPage = new WebPage("Danish universities", "www.wikipedia.com");
+        WebPage testWebPage2 = new WebPage("Danish universities", "www.wikipedia.com");
+        Word testWord = new Word("danish", testWebPage);
+        testWord.addOcurrence(testWebPage2);
         
-        
+        searchengine1.getPageScore(testWord, testWebPage);
+        assertEquals(searchengine1.getPageScore(testWord, testWebPage), 0.5);
 
+        testWord.addOcurrence(testWebPage2);
+        testWord.addOcurrence(testWebPage2);
+        assertEquals(searchengine1.getPageScore(testWord, testWebPage), 0.25);
     }
 
     @Test
