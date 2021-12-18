@@ -29,42 +29,18 @@
         $( function() {
         // code to fetch keyword from variable 
 
-        $("#searchbox" ).autocomplete({
+$("#searchbox" ).autocomplete({
 
-          source: availableTags
-        });
-        } );
+source: result,
 
-        // code to fetch data from json url 
+// initiate autocomplete when 3 letter is typed
+minLength: 3,
+//   select: function( event, ui ) {
+//         log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+//       }
+});
+} );
 
-        // let url = 'http://ip.jsontest.com/';
-
-        // $( function() {
-        //     function log( message ) {
-        //       $( "<div>" ).text( message ).prependTo( "#log" );
-        //       $( "#log" ).scrollTop( 0 );
-        //     }
-
-        //     $( "#searchbox" ).autocomplete({
-        //       source: function( request, response ) {
-        //         $.ajax( {
-        //           url: url,
-        //           dataType: "jsonp",
-        //           data: {
-        //             term: request.term
-        //           },
-        //           success: function( data ) {
-        //             response( data );
-        //           }
-        //         } );
-        //       },
-        //       minLength: 2,
-        //       select: function( event, ui ) {
-        //         log( "Selected: " + ui.item.value + " aka " + ui.item.id );
-        //       }
-        //     } );
-        //   } );
-        // })
         </script>
       </head>
 
@@ -78,10 +54,7 @@
         </div>
           <div class="form-outline" id="content">
               
-              <!-- <div class="input-container">
-                  <input type="search"  id="searchbox" type="text" class="searchbox" placeholder="Search Wikipedia..." />
-                  <button class="btn btn-primary" id="searchbutton"><i class="fa fa-search"> Search</i></button>
-            </div> -->
+         
           </div>
       </section>
       <div id="responsesize"></div>
