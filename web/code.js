@@ -1,5 +1,5 @@
 /* jshint esversion: 6 */
-
+window.onload
 
 /* This code will trigger a search when enter is pressed */
 var input = document.getElementById("searchbox");
@@ -11,42 +11,53 @@ input.addEventListener("keyup", function(event) {
 });
 
 document.getElementById('searchbutton').onclick =  () => {
-   
+    var loader = document.getElementById("loader");
+    document.getElementById("responsesize").innerHTML ="";
+    loader.classList.add("show")
     fetch("/search?q=" + document.getElementById('searchbox').value)
         .then((response) => response.json())
-        .then((data) => {
-        
-            if (data.length == 1) {
-                document.getElementById("responsesize").innerHTML =
-
-                    "<p>" + data.length + " website found</p>";
-                    document.getElementById("responsesize").style =
-                    "color: darkgreen;"
-            }
-            else {
-                document.getElementById("responsesize").innerHTML =
-
-                    "<p>" + data.length + " websites found</p>";
-                    
-                    document.getElementById("responsesize").style =
-                    "color: darkgreen;"
-                    
-            }
+        .then((data) => {   
+            loader.classList.remove("show")
+            var websiteString = data.length==1 ? "website" : "websites";
+            document.getElementById("responsesize").innerHTML ="<p>" + data.length + " " + websiteString + " found</p>";
+            document.getElementById("responsesize").style = "color: darkgreen;"
             let results = data.map((page) =>
                 `<li><a href="${page.url}">${page.title}</a></li>`)
                 .join("\n");
             document.getElementById("urllist").innerHTML = `<ul>${results}</ul>`;
             
+        }).catch((err) => console.log("Sorry, no results found " + err));
 
-        }).catch((err) => console.log("Sorry, no results found"));
+        document.getElementById("urllist").innerHTML ="";
+        //document.getElementById("responsesize").innerHTML ="<p>Sorry, no results found</p>";
+        document.getElementById("responsesize").style = "color: crimson;";
+}
 
-             document.getElementById("urllist").innerHTML ="";
-                document.getElementById("responsesize").innerHTML =
-                    "<p>Sorry, no results found</p>";
-                    document.getElementById("responsesize").style =
-                    "color: crimson;";
-               
-           
 
+/*AutoComplete*/
+
+/* import data from local txt file */
+
+  var stringData = $.ajax({
+    mode: 'cors',
+    url: "autocomplete.txt",
+    async: false
+ }).responseText;
+
+/* split values by new line */
+
+var stringArray = stringData.split("\n");
+// alert("Data Loaded: " + stringData);
+
+
+// Using Array.filter to get unique values
+const useFilter = stringArray => {
+    return stringArray.filter((value, index, self) => {
+      return self.indexOf(value) === index;
+    });
+  };
+   
+  var result = useFilter(stringArray);
   
-};
+
+

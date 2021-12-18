@@ -10,39 +10,39 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import searchengine.dba.Indexer;
+import searchengine.dba.Stemmer;
 import searchengine.dba.WebPage;
 import searchengine.dba.Word;
 
 public class SearchEngine {
     private Indexer indexer;
     private String searchInput;
-    private List<List<String>> splittedInput = new ArrayList<>();
-
-  
-  /** 
-   * Creates new indexer object from String filename */  
+    private List<List<String>> splittedInput;
+    private Stemmer stemmer;
 
     public SearchEngine(String filename) {
         try {
             indexer = new Indexer(filename);
+            stemmer = new Stemmer();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    /** 
-   * Creates a list of webpages containing searchTerm */  
-
     public List<WebPage> search(String searchTerm) {
+        long start = System.currentTimeMillis();
         searchInput = searchTerm;
+        splittedInput = new ArrayList<>();
         splittingInput();
         HashMap<WebPage, Double> unorderedHashMap = gatherWebpages();
-
         List<WebPage> result = unorderedHashMap.entrySet().stream()
             .sorted(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()))
             .map(Map.Entry::getKey)
+            //.limit(30)
             .collect(Collectors.toList());
-
+        long finish = System.currentTimeMillis();
+        long timeElapsed = finish - start;
+        System.out.println("Took " + timeElapsed + " miliseconds to run the  search");
         return result;
     }
 
@@ -80,6 +80,7 @@ public class SearchEngine {
 
     public HashMap<WebPage,Double> getScoreMapWithANDlogic(List<String> listWithANDLogic){
         HashMap<WebPage,Double> mapOfWebPages = new HashMap<>();
+
         for (String term : listWithANDLogic) {
             if (indexer.getWord(term) != null) {
                 
@@ -110,9 +111,7 @@ public class SearchEngine {
         for (HashMap<WebPage,Double> hashMap : mapsWithOrLogic) {
             for (WebPage webPage : hashMap.keySet()) {
                 if (mapOfWebPages.containsKey(webPage)) {
-                    
                     mapOfWebPages.put(webPage,Math.max(hashMap.get(webPage) , mapOfWebPages.get(webPage)));
-                
                 } else {
                     mapOfWebPages.put(webPage, hashMap.get(webPage));
                 }
