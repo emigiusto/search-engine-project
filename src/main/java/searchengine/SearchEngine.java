@@ -81,9 +81,9 @@ public class SearchEngine {
     public HashMap<WebPage,Double> getScoreMapWithANDlogic(List<String> listWithANDLogic){
         HashMap<WebPage,Double> mapOfWebPages = new HashMap<>();
         for (String term : listWithANDLogic) {
-            if (indexer.getWord(term) != null) {
+            Word wordSearched = indexer.getWord(term);
+            if (wordSearched != null) {
                 
-                Word wordSearched = indexer.getWord(term);
                 Set<WebPage> allWebPages = wordSearched.getAllWebPages();
                 for (WebPage webPage : allWebPages) {
                     if (mapOfWebPages.containsKey(webPage)) {
@@ -122,7 +122,7 @@ public class SearchEngine {
 }
 
     /**
-    * It calculates the score of a @word of a webpage.
+    * It calculates the score of a word of a webpage.
     * @param  word It is a word from the inverted index.
     * @param  webPage Represents a real webpage crawled stored in a database.
     * @return It returns the score of a searched word for ranking websites by relevance.
