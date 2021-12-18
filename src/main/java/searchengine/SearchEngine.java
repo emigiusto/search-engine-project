@@ -131,4 +131,12 @@ public class SearchEngine {
     public double getPageScore(Word word, WebPage webPage) {
         return (double) word.getWebPageFrequency(webPage) /(double) word.getTotalFrequency();
     } 
+
+    public List<List<String>> getSplittedInput() {
+        return splittedInput;
+    }
+
+    public void setSearchInput(String searchInput) {
+        this.searchInput = searchInput;
+    }
 }
