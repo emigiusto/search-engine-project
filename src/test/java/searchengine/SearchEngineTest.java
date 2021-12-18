@@ -83,7 +83,22 @@ class SearchEngineTest {
     @Test
     @DisplayName("getScoreMapWithANDlogic should calculate score of input without 'or' operators and put in List")
     void testgetScoreMapWithANDlogic() {
-       
+    /*    var searchengine1 = new SearchEngine("data/enwiki-tiny.txt");
+
+
+        HashMap<WebPage,Double> actual = new HashMap<>();
+        
+        WebPage testWebPage = new WebPage("Danish universities", "www.wikipedia.com");
+        WebPage testWebPage2 = new WebPage("Danish universities", "www.wikipedia.com");
+        Word testWord = new Word("danish", testWebPage);
+        testWord.addOcurrence(testWebPage2);
+        
+        searchengine1.getPageScore(testWord, testWebPage);
+        assertEquals(searchengine1.getPageScore(testWord, testWebPage), 0.5);
+
+        testWord.addOcurrence(testWebPage2);
+        testWord.addOcurrence(testWebPage2);
+        assertEquals(searchengine1.getPageScore(testWord, testWebPage), 0.25);*/
     }
 
     @Test
@@ -91,7 +106,6 @@ class SearchEngineTest {
     void testgetScoreMapWithORlogic() {
    
     }
-
  
     
     @Test
