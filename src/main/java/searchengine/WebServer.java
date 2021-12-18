@@ -24,8 +24,8 @@ public class WebServer {
   }
 
     /**
-   * <p>This methods initializes a Web server with a given port</p>
-   * <p>Defining Routing</p>
+   * This methods initializes a Web server with a given port
+   * Defines Routing for the server's endpoints and prints an starter message in the console
    * @param port port where the server will be running
    */
   public void initializeServer(int port){
@@ -43,14 +43,22 @@ public class WebServer {
           
           "/autocomplete.txt", io -> respond(io, 200, "text/plain", getFile("web/autocomplete.txt")));
       server.start();
-      String msg = " WebServer running on http://localhost:" + port + " ";
-      System.out.println("│"+msg+"│");
+      
+      System.out.println("WebServer running on http://localhost:" + port);
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
     
   }
-  
+  /**
+  * Extracts the String after the "=" sign on the URL of the request and passes that string to the
+  * SearchEngine as parameter for search(searchTerm)
+  * Compiles the list of WebPages received from the search performed into an arraylist of String adding some formatting
+  * Transform the ArrayList of String into a byte[] and sends the array to respond(), together with 200 as status code,
+  * "application/json" as content type and the HttpExchange object received as parameter.
+  * 
+  * @param  io  A HttpExchange object obtained from a GET request received by the server in the "/search" endpoint
+  */
   public void search(HttpExchange io) {
     var searchTerm = io.getRequestURI().getRawQuery().split("=")[1];
     var response = new ArrayList<String>();
@@ -61,7 +69,12 @@ public class WebServer {
     respond(io, 200, "application/json", bytes);
   }
 
-
+  /**
+  * Retrieves a file using the path received as parameter and returns it as a byte[]
+  * If the file is not found returns an empty byte[]
+  * 
+  * @param  filename  an String with the name of the file
+  */
   public byte[] getFile(String filename) {
     try {
       return Files.readAllBytes(Paths.get(filename));
@@ -71,6 +84,16 @@ public class WebServer {
     }
   }
 
+  /**
+  * Adds header information to the server responses based on the data received by parameters:
+  * content type, status code
+  * Adds the data received from the SearchEngine as parameter to the response body.
+  *
+  * @param  io  A HttpExchange object obtained from a request received by the server
+  * @param  code  an int with the status code of the response
+  * @param  mime  an String with the content type of the response
+  * @param  response  a byte[] with all the data retrieved from the SearchEngine
+  */
   public void respond(HttpExchange io, int code, String mime, byte[] response) {
     try {
       io.getResponseHeaders()

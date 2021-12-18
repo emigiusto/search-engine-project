@@ -14,6 +14,7 @@ import java.util.Random;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -44,18 +45,14 @@ class WebServerTest {
     }
 
     @Test
+    @DisplayName("The JSON object extracted from the response should have url and title as properties")
     void lookupWebServer() {
         String baseURL = String.format("http://localhost:%d/search?q=", server.getServer().getAddress().getPort());
-       /* assertEquals("[{\"url\": \"http://page1.com\", \"title\": \"title1\"}, {\"url\": \"http://page2.com\", \"title\": \"title2\"}]", 
-            httpGet(baseURL + "word1"));*/
         assertEquals("[{\"url\": \"http://page1.com\", \"title\": \"title1\"}]",
             httpGet(baseURL + "word2"));
         assertEquals("[{\"url\": \"http://page2.com\", \"title\": \"title2\"}]", 
             httpGet(baseURL + "word3"));
-        assertEquals("[]", 
-            httpGet(baseURL + "word4"));
     }
-
 
     private String httpGet(String url) {
         var uri = URI.create(url);

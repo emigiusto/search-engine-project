@@ -1,82 +1,76 @@
 <html>
+    <head>
+      <title>Computer Engineered Scalable Search Engine Programmed with Ideal Technology</title>
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/style.css" /> 
+     
+      <!-- Bootstrap 5 -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+          crossorigin="anonymous"></script>
+     
+      <!-- Custom JS -->
+      <script src="/code.js" defer></script>
+      <script src="https://eruptfarpd.webcompose.dk/ac.js" defer></script>
+       <!-- Fontawesome -->
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <!-- AutoComplete -->
+      <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+      <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+      <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+      <link rel="stylesheet" href="https://resources/demos/style.css">
+      
 
-<head>
-    <title>Computer Engineered Scalable Search Engine Programmed with Ideal Technology</title>
+      <!-- Include Choices JavaScript (latest) -->
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+<!-- Or versioned -->
+<script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
+      <script> 
+        $( function() {
+        // code to fetch keyword from variable 
 
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
-       
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/style.css" />
-    
-    <!-- Custom JS -->
- 
-    <script src="/code.js" defer></script>
-    
-
-     <!-- Fontawesome -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-<!-- AutoComplete -->
-
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-
-
-<script> 
-
-
-$( function() {
-// code to fetch keyword from variable 
-    
 $("#searchbox" ).autocomplete({
 
-  source: result,
+source: result,
 
-  // initiate autocomplete when 3 letter is typed
-  minLength: 3,
+// initiate autocomplete when 3 letter is typed
+minLength: 3,
 //   select: function( event, ui ) {
 //         log( "Selected: " + ui.item.value + " aka " + ui.item.id );
 //       }
 });
 } );
 
-  </script>
+        </script>
+      </head>
 
-
-</head>
-
-<body>
-    
-   
-    <section id="searchblock">
-        <div class="form-outline" id="content">
-
-
-            <h1 id="headline">My Search Engine</h1>
-            <input type="search" id="searchbox" type="text" class="searchbox" placeholder="Search Wikipedia..."/>
-            <button class="btn btn-primary" id="searchbutton"><i class="fa fa-search"> Search</i></button>
-
+      
+  <body>
+      <section id="searchblock">
+        <h1 id="headline">My Search Engine</h1>
+        <div class="input-group">
+          <input  id="searchbox" type="search" class="form-control rounded" placeholder="Search Wikipedia..." " aria-label="Search"
+          aria-describedby="search-addon" /><button id="searchbutton" type="button" class="btn btn-outline-secondary">search</button>
         </div>
-
-    </section>
-
-    <div id="responsesize"></div>
-    <div id="error"></div>
-    <div id="urllist"></div>
-
-
- <div id="toTop">
-<a href="#searchbox">Back to search ▲</a>
-
- </div>   
-</body>
-
+          <div class="form-outline" id="content">
+              
+         
+          </div>
+      </section>
+      <div id="responsesize"></div>
+      <div id="error"></div>
+      <div id="loader" class="loader">Searching...</div>
+      <div id="urllist"></div>
+      <div id="toTop">
+        <a href="#searchbox">Back to search ▲</a>
+      </div> 
+      
+      <script>
+        var textPresetVal = new Choices('#searchbox',
+        {
+          removeItemButton: true,
+        });
+  
+      </script>
+  </body>
 </html>
