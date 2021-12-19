@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Indexer {
-    private List<WebPage> pages = new ArrayList<>();
     private Map<String,Word> invertedIndex = new HashMap<String,Word>();
     private Stemmer stemmer = new Stemmer();
     private List<String> stopWords;
@@ -30,7 +29,7 @@ public class Indexer {
         }
     }
 
-/** 
+    /** 
    * Retrieve all lines in database starting with "*PAGE" */  
     public void fetchDatabase(String filename) throws IOException{
         try(BufferedReader bufferReader = new BufferedReader(new FileReader(filename))) 
@@ -92,9 +91,5 @@ public class Indexer {
 
     public Word getWord(String word){
         return invertedIndex.get(word);
-    }
-
-    public  List<WebPage> getAllPages() {
-        return pages;
     }
 }
