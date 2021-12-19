@@ -29,7 +29,7 @@ public class SearchEngine {
     }
 
     /**
-    * Search compiles and return a List of WebPages in descending order by each Webpage combined Score.
+    * Compiles and return a List of WebPages in descending order by each Webpage combined Score.
     * @param  searchTerm An string that can have one or multiple words divided by %20 (as it is obtained from a URL)
     * @return List<WebPage> a List of WebPages in descending order by each Webpage combined Score.
     */
@@ -66,7 +66,7 @@ public class SearchEngine {
     }
 
     /**
-    * It compiles multiple hashmaps obtained in createANDLogicMap using mergeORLogicMaps
+    * Compiles multiple hashmaps obtained in createANDLogicMap using mergeORLogicMaps
     * @return It returns a hashmap that relates webpages with their corresponding score after being merged.
     * @param listOfTerms A list of lists of searchTerms
     */
@@ -79,8 +79,8 @@ public class SearchEngine {
     }
     
     /**
-    * It creates a hashmap that relates webpages with their corresponding score.
-    * It combines the score of different words by the And logic. (In case a webpage is duplicated it will add the score)
+    * Creates a hashmap that relates webpages with their corresponding score.
+    * Combines the score of different words by the And logic. (In case a webpage is duplicated it will add the score)
     * @param  listWithANDLogic A List of type String that stores one or multiple searchTerms.
     * @return It returns a hashmap with webpages and their corresponding score based on AND Score logic (Add the scores when a page is duplicated). 
     */
@@ -105,7 +105,7 @@ public class SearchEngine {
     }
 
     /**
-    * It merges a list of one or multiple hashmaps into a single hashmap using OR Logic (Keep the max score when a page is duplicated).
+    * Merges a list of one or multiple hashmaps into a single hashmap using OR Logic (Keep the max score when a page is duplicated).
     * The criteria for merging is keeping the maximum double value. 
     * @param  mapsWithOrLogic It is a List of Hashmaps with webpages and their corresponding score according to ADD Logic.
     * @return It returns the merged hashmap.
@@ -125,7 +125,7 @@ public class SearchEngine {
     }
 
     /**
-    * It calculates the score of a word of a webpage.
+    * Calculates the score of a word of a webpage.
     * @param  word It is a word from the inverted index.
     * @param  webPage Represents a real webpage crawled stored in a database.
     * @return It returns the score of a searched word for ranking websites by relevance.
@@ -134,8 +134,13 @@ public class SearchEngine {
         return (double) word.getWebPageFrequency(webPage) /(double) word.getTotalFrequency();
     } 
 
+    /**
+    * Remove all signs or punctuation marks from an input string, transforms it to lowercase and reduces it to a root form (Stemming).
+    * @param  word It is a word from the inverted index.
+    * @return Returns the resulting string
+    */
     public String cleanWord(String word){
-        return stemmer.stemWord(word.replaceAll("[.,!\\?´¨^*:;{&¤}+á¼ï»î±î¿ä]", "").toLowerCase());
+        return stemmer.stemWord(word.replaceAll("[.,!\\?´¨^*$:;{&¤}/+á¼ï()»î±î¿ä]", "").toLowerCase());
     }
 
     // Getters and Setters
