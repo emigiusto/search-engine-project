@@ -21,7 +21,6 @@ public class IndexerTrie {
             e.printStackTrace();
         }
     }
-
     
     /** Loads the database into the trie data structure
      * @param filename
@@ -52,7 +51,6 @@ public class IndexerTrie {
             e.printStackTrace();
         }
     }
-
     
     /** searchs a word in the trie
      * @param searchTerm

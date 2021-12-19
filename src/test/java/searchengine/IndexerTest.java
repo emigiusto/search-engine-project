@@ -2,7 +2,6 @@ package searchengine;
 
 import searchengine.dba.Indexer;
 import searchengine.dba.WebPage;
-import searchengine.dba.Word;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -107,19 +106,5 @@ class IndexerTest {
         assertEquals(indexerMockEmpty.cleanWord(input5),"");
         assertEquals(indexerMockEmpty.cleanWord(input6),"");
         assertEquals(indexerMockEmpty.cleanWord(input7),"");
-    }
-
-    public static void main(String[] args) {
-        var indexerMockEmpty = new Indexer("data/enwiki-emptymockdba.txt");
-        var testWebPage1 = new WebPage("Title1", "www.webpage1.com");
-        List<String> contentList = new ArrayList<String>();
-        contentList.add("one");
-        contentList.add("look");
-        indexerMockEmpty.updateInvertedIndex(testWebPage1, contentList);
-        Word one = new Word("one",testWebPage1);
-        //Word two = new Word("one",testWebPage2);
-        var a = indexerMockEmpty.getInvertedIndex().get("castle");
-        System.out.println("");
-
     }
 }

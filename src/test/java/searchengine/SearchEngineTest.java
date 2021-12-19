@@ -49,7 +49,6 @@ class SearchEngineTest {
         assertEquals(searchEngine.splitInput("Danish or university"),testList);
     }
 
-
     @Test
     @DisplayName("getPageScore should calculate the score of the input")
     void testGetPageScore() {
@@ -180,7 +179,6 @@ class SearchEngineTest {
                 ironPage = webPage;
             }
         }
-
         //Colombia WebPage should be second (Score = 1.25)
         //Iron WebPage should be second (Score = 1)
         assertEquals(searchEngineMock.search("colombia%20notarealword or iron").get(0), colombiaPage);

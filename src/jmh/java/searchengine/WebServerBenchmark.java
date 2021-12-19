@@ -42,11 +42,4 @@ public class WebServerBenchmark {
             e.printStackTrace();
         }
     }
-    /*
-    @Benchmark
-    public List<List<String>> measureAvgTime() throws InterruptedException {
-        // Probably not a good idea to search for the same thing all the time... oh well
-        return server.search("denmark");
-    }
-    */
 }

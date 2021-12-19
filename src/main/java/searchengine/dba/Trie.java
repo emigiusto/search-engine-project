@@ -19,7 +19,6 @@ public class Trie
         leaf = null;
     }
     
-    
     /** Inserts a key into the trie and creates a webPage for that Node
      * @param key
      * @param webPage
@@ -44,9 +43,7 @@ public class Trie
             curr.isLeaf = true;
         }
     }
-  
-    
-    
+
     /** If the key is found on the last node, returns True
      * @param key
      * @return boolean
@@ -70,7 +67,6 @@ public class Trie
         return curr.isLeaf;
     }
 
-    
     /** 
      * @param word
      * @return Word
