@@ -1,4 +1,10 @@
 /build
 .gradle
-/data
+/data/enwiki-large.txt
+/data/enwiki-medium.txt
+/data/enwiki-small.txt
+/data/enwiki-tiny.txt
+/data/test-database.txt
+/data/test-file-errors.txt
+/data/test-file.txt
 bin
