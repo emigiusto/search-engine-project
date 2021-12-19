@@ -17,6 +17,8 @@ public class Indexer {
 
     public Indexer(String filename){
         try {
+            System.out.println("Indexing the database.This process takes around 120 seconds");
+            System.out.println("Please wait....");
             stopWords = Files.readAllLines(Paths.get("data/stop-words.txt"));
             long start = System.currentTimeMillis(); //Manual BenchMarking
             fetchDatabase(filename);
