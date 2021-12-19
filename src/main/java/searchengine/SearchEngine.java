@@ -38,7 +38,7 @@ public class SearchEngine {
 
         originalSearchInput = searchTerm;
         List<List<String>> splittedInput = splitInput(searchTerm);
-        HashMap<WebPage, Double> unorderedHashMap = gatherWebpages(splittedInput);
+        HashMap<WebPage, Double> unorderedHashMap = compileHashMaps(splittedInput);
         List<WebPage> result = unorderedHashMap.entrySet().stream()
             .sorted(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()))
             .map(Map.Entry::getKey)
@@ -64,24 +64,25 @@ public class SearchEngine {
     }
 
     /**
-    * It merges multiple hashmaps obtained in getScoreMapWithANDlogic using getScoreMapWithORlogic
+    * It compiles multiple hashmaps obtained in getScoreMapWithANDlogic using getScoreMapWithORlogic
     * @return It returns a hashmap that relates webpages with their corresponding score after being merged.
+    * @param listOfTerms A list of lists of searchTerms
     */
-    public HashMap<WebPage, Double> gatherWebpages(List<List<String>> listOfTerms) {
+    public HashMap<WebPage, Double> compileHashMaps(List<List<String>> listOfTerms) {
         List<HashMap<WebPage, Double>> mapsWithOrLogic = new ArrayList<>();
         for (List<String> listJoinedByAnd : listOfTerms) {
-            mapsWithOrLogic.add(getScoreMapWithANDlogic(listJoinedByAnd));
+            mapsWithOrLogic.add(createANDLogicMap(listJoinedByAnd));
         }
-        return getScoreMapWithORlogic(mapsWithOrLogic);
+        return mergeORLogicMaps(mapsWithOrLogic);
     }
     
     /**
     * It creates a hashmap that relates webpages with their corresponding score.
-    * It combines the score of different words by the And logic. (in case a webpage is duplicated it will add the score)
-    * @param  listWithANDLogic A List of type String that stores webpages and their score.
-    * @return It returns a hashmap with webpages and their corresponding score. 
+    * It combines the score of different words by the And logic. (In case a webpage is duplicated it will add the score)
+    * @param  listWithANDLogic A List of type String that stores one or multiple searchTerms.
+    * @return It returns a hashmap with webpages and their corresponding score based on AND Score logic (Add the scores when a page is duplicated). 
     */
-    public HashMap<WebPage,Double> getScoreMapWithANDlogic(List<String> listWithANDLogic){
+    public HashMap<WebPage,Double> createANDLogicMap(List<String> listWithANDLogic){
         HashMap<WebPage,Double> mapOfWebPages = new HashMap<>();
         for (String term : listWithANDLogic) {
             var termProcessed =  cleanWord(term);
@@ -102,12 +103,12 @@ public class SearchEngine {
     }
 
     /**
-    * It merges mulitple hashmaps consisting of splitted strings by an Or operator, into a single hashmap.
+    * It merges a list of one or multiple hashmaps into a single hashmap using OR Logic (Keep the max score when a page is duplicated).
     * The criteria for merging is keeping the maximum double value. 
-    * @param  mapsWithOrLogic It is a List of Hashmaps with webpages and their corresponding score.
+    * @param  mapsWithOrLogic It is a List of Hashmaps with webpages and their corresponding score according to ADD Logic.
     * @return It returns the merged hashmap.
     */
-    public HashMap<WebPage,Double> getScoreMapWithORlogic(List<HashMap<WebPage,Double>> mapsWithOrLogic){
+    public HashMap<WebPage,Double> mergeORLogicMaps(List<HashMap<WebPage,Double>> mapsWithOrLogic){
         HashMap<WebPage,Double> mapOfWebPages = new HashMap<>();
         for (HashMap<WebPage,Double> hashMap : mapsWithOrLogic) {
             for (WebPage webPage : hashMap.keySet()) {
