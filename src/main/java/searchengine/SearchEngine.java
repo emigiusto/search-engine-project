@@ -38,7 +38,6 @@ public class SearchEngine {
         List<WebPage> result = unorderedHashMap.entrySet().stream()
             .sorted(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()))
             .map(Map.Entry::getKey)
-            //.limit(30)
             .collect(Collectors.toList());
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
@@ -82,9 +81,10 @@ public class SearchEngine {
         HashMap<WebPage,Double> mapOfWebPages = new HashMap<>();
 
         for (String term : listWithANDLogic) {
-            Word wordSearched = indexer.getWord(term);
+            var termProcessed =  cleanWord(term);
+            Word wordSearched = indexer.getWord(termProcessed);
+
             if (wordSearched != null) {
-                
                 Set<WebPage> allWebPages = wordSearched.getAllWebPages();
                 for (WebPage webPage : allWebPages) {
                     if (mapOfWebPages.containsKey(webPage)) {
@@ -130,6 +130,10 @@ public class SearchEngine {
     public double getPageScore(Word word, WebPage webPage) {
         return (double) word.getWebPageFrequency(webPage) /(double) word.getTotalFrequency();
     } 
+
+    public String cleanWord(String word){
+        return stemmer.stemWord(word.replaceAll("[.,!\\?´¨^*:;{&¤}+á¼ï»î±î¿ä]", "").toLowerCase());
+    }
 
     public List<List<String>> getSplittedInput() {
         return splittedInput;
