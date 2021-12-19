@@ -69,6 +69,9 @@ class SearchEngineTest {
     @Test
     @DisplayName("createANDLogicMap should return a HashMap with all webpages related to each of the input strings and their corresponding score using AND logic")
     void testCreateANDLogicMap() {
+        WebPage colombiaPage = new WebPage("title", "url");
+        WebPage ironPage = new WebPage("title", "url");
+
         List<String> testList = new ArrayList<String>();
         testList.add("colombia");
         testList.add("iron");
@@ -77,8 +80,15 @@ class SearchEngineTest {
         Word colombiaWord = searchEngineMock.getIndexer().getWord("colombia");
         List<WebPage> webPageList = new ArrayList<WebPage>();
         webPageList.addAll(colombiaWord.getAllWebPages());
-        WebPage colombiaPage = webPageList.get(0);
-        WebPage ironPage = webPageList.get(1);
+        for (WebPage webPage : webPageList) {
+            if (webPage.getTitle().equals("ColombiaTitle")) {
+                colombiaPage = webPage;
+            }
+            if (webPage.getTitle().equals("IronTitle")) {
+                ironPage = webPage;
+            }
+        }
+
         assertEquals(searchEngineMock.createANDLogicMap(testList).get(colombiaPage), 0.75); //0.75 from Colombia Word + 0 from Iron Word
         assertEquals(searchEngineMock.createANDLogicMap(testList).get(ironPage), 1.25); //1 from Iron Word + 0.25 from Colombia Word
     }
@@ -137,8 +147,16 @@ class SearchEngineTest {
         List<WebPage> webPageList = new ArrayList<WebPage>();
         webPageList.addAll(colombiaWord.getAllWebPages());
         //Selects the only 2 webpages present in the database
-        WebPage colombiaPage = webPageList.get(0);
-        WebPage ironPage = webPageList.get(1);
+        WebPage colombiaPage = new WebPage("title", "url");
+        WebPage ironPage = new WebPage("title", "url");
+        for (WebPage webPage : webPageList) {
+            if (webPage.getTitle().equals("ColombiaTitle")) {
+                colombiaPage = webPage;
+            }
+            if (webPage.getTitle().equals("IronTitle")) {
+                ironPage = webPage;
+            }
+        }
         
         assertEquals(searchEngineMock.compileHashMaps(testListListInput).get(colombiaPage), 1.25);
         assertEquals(searchEngineMock.compileHashMaps(testListListInput).get(ironPage), 1);
@@ -152,13 +170,46 @@ class SearchEngineTest {
         List<WebPage> webPageList = new ArrayList<WebPage>();
         webPageList.addAll(colombiaWord.getAllWebPages());
         //Selects the only 2 webpages present in the database
-        WebPage colombiaPage = webPageList.get(0);
-        WebPage ironPage = webPageList.get(1);
+        WebPage colombiaPage = new WebPage("title", "url");
+        WebPage ironPage = new WebPage("title", "url");
+        for (WebPage webPage : webPageList) {
+            if (webPage.getTitle().equals("ColombiaTitle")) {
+                colombiaPage = webPage;
+            }
+            if (webPage.getTitle().equals("IronTitle")) {
+                ironPage = webPage;
+            }
+        }
 
         //Colombia WebPage should be second (Score = 1.25)
         //Iron WebPage should be second (Score = 1)
         assertEquals(searchEngineMock.search("colombia%20notarealword or iron").get(0), colombiaPage);
         assertEquals(searchEngineMock.search("colombia%20notarealword or iron").get(1), ironPage);
+    }
+
+
+    public static void main(String[] args) {
+        var searchEngineMock = new SearchEngine("data/enwiki-mockdba.txt");
+
+        WebPage colombiaPage = new WebPage("title", "url");
+        WebPage ironPage = new WebPage("title", "url");
+
+        List<String> testList = new ArrayList<String>();
+        testList.add("colombia");
+        testList.add("iron");
+
+        //Case Colombia Iron -> mockdba.txt database
+        Word colombiaWord = searchEngineMock.getIndexer().getWord("colombia");
+        List<WebPage> webPageList = new ArrayList<WebPage>();
+        webPageList.addAll(colombiaWord.getAllWebPages());
+        for (WebPage webPage : webPageList) {
+            if (webPage.getTitle().equals("ColombiaTitle")) {
+                colombiaPage = webPage;
+            }
+            if (webPage.getTitle()=="IronTitle") {
+                ironPage = webPage;
+            }
+        }
     }
 }
 
