@@ -34,9 +34,6 @@ public class SearchEngine {
     * @return List<WebPage> a List of WebPages in descending order by each Webpage combined Score.
     */
     public List<WebPage> search(String searchTerm) {
-        //Some manual benchmarking
-        long start = System.currentTimeMillis();
-        //End of manual benchmarking
         originalSearchInput = searchTerm;
         List<List<String>> splittedInput = splitInput(searchTerm);
         HashMap<WebPage, Double> unorderedHashMap = compileHashMaps(splittedInput);
@@ -44,11 +41,6 @@ public class SearchEngine {
             .sorted(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()))
             .map(Map.Entry::getKey)
             .collect(Collectors.toList());
-        //Some manual benchmarking
-        long finish = System.currentTimeMillis();
-        long timeElapsed = finish - start;
-        System.out.println("Took " + timeElapsed + " miliseconds to run the  search");
-        //End of manual benchmarking
         return result;
     }
 

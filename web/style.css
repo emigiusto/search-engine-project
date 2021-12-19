@@ -1,5 +1,3 @@
-
-
 @import url('https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
@@ -12,21 +10,17 @@
     margin: auto;
     width: 50%;
     display: flex;
-    justify-content: center;
 }
 
 .ui-autocomplete-loading {
     background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
-  }
-
+}
 
 #toTop {
-font-family: 'Roboto', sans-serif; 
-padding-top: 2%;    
-text-align: center;
-display: none;
-
-
+    font-family: 'Roboto', sans-serif; 
+    padding-top: 2%;    
+    text-align: center;
+    display: none;
 }  
 
 
@@ -37,28 +31,21 @@ display: none;
     text-align: center;
     margin: auto;
     color: darkgreen;
-    
-    
-    
 }
 
 #error{
     margin-left: 40%;
     color: crimson;
-    
 }
 
 a {
-
     text-decoration: none;
 }
 
 a:hover {
-
-color: crimson;
-text-decoration: underline;  
-transition: 0.5s;
-    
+    color: crimson;
+    text-decoration: underline;  
+    transition: 0.5s;
 }
 
 
@@ -73,7 +60,6 @@ input[type="search"] {
     border-radius: 20px;
     transition: box-shadow 0.4s, border 0.3s;
     height: 40px;
-    
 }
 
 input[type="search"]:focus,
@@ -83,13 +69,11 @@ input[type="search"].focus {
 }
 
 #headline {
-   
     text-align: center;
     color:black;
     padding-top: 1%;  
     padding-bottom: 1%;
     padding-right: 5%;
-
 }
 
 #searchbox {
@@ -97,8 +81,6 @@ input[type="search"].focus {
     text-align: center;
     background-color:rgba(180, 216, 235, 0.324);
     pointer-events: painted;
-  
-
 }
 
 #searchbox:hover {
@@ -114,25 +96,21 @@ input[type="search"].focus {
     border-radius: 1px;
     width: 90px; 
     height: 40px; 
-
 }
 
 #searchbutton:hover {
- 
-   background-color:#0d6efd;
-    
-
+    background-color:#0d6efd;
 }
 
 #searchblock {
-  background-color: #0093E9;
-  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);  
-  font-family: 'Roboto', sans-serif; 
-  padding-top: 2%;  
-  background-color:teal;
-  padding: 80px 0 60px 0;
-  height: 45%;
-  opacity: 0.9;
+    background-color: #0093E9;
+    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);  
+    font-family: 'Roboto', sans-serif; 
+    padding-top: 2%;  
+    background-color:teal;
+    padding: 80px 0 60px 0;
+    height: 45%;
+    opacity: 0.9;
 }
 
 .input-container{

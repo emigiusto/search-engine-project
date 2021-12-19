@@ -11,8 +11,7 @@ public class Word {
         this.term = term;
         addOcurrence(webPage); 
     }
-
-
+    
 /** 
  * This method maps webpages to currentFrequency and increments index */
     public void addOcurrence(WebPage webPage){

@@ -73,7 +73,6 @@ class WordTest {
         assertEquals(word.getAllWebPages(),testHashSet2,"The set of a new Word with webPage1 in the constructor and webPage2 added afterwards should be a 2-element set with webPage1 and webPage2 inside");
     }
 
-
     @Test
     @DisplayName("getTotalFrequency should return an integer with the sum of all webPage frequencies")
     void testGetTotalFrequency() {
@@ -84,6 +83,4 @@ class WordTest {
         word.addOcurrence(webPage1);
         assertEquals(word.getTotalFrequency(),4,"TotalFrequency of a Word with only 2 webPage1 and 2 webPage2 should be 4");
     }
-
-
 }

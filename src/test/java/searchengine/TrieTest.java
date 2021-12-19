@@ -38,7 +38,6 @@ class TrieTest {
         assertEquals(key, trie.getWord(key).getTerm());
     }
 
-
     @Test 
     @DisplayName("The search method should return true if the key is founded")
     void testTrieSearch(){
@@ -52,5 +51,4 @@ class TrieTest {
         trie.insert(key, webPage);
         assertFalse(trie.search("nonExistant"));
     }
-
 }

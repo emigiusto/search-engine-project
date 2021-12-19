@@ -23,11 +23,11 @@ public class WebServer {
     searchEngine = new SearchEngine(filename);
   }
 
-    /**
-   * This methods initializes a Web server with a given port
-   * Defines Routing for the server's endpoints and prints an starter message in the console
-   * @param port port where the server will be running
-   */
+  /**
+  * This methods initializes a Web server with a given port
+  * Defines Routing for the server's endpoints and prints an starter message in the console
+  * @param port port where the server will be running
+  */
   public void initializeServer(int port){
     try {
       server = HttpServer.create(new InetSocketAddress(port), BACKLOG);
@@ -50,6 +50,7 @@ public class WebServer {
     }
     
   }
+  
   /**
   * Extracts the String after the "=" sign on the URL of the request and passes that string to the
   * SearchEngine as parameter for search(searchTerm)

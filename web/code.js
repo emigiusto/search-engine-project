@@ -5,8 +5,8 @@ window.onload
 var input = document.getElementById("searchbox");
 input.addEventListener("keyup", function(event) {
   if (event.key === 'Enter') {
-   event.preventDefault();
-   document.getElementById("searchbutton").click();
+    event.preventDefault();
+    document.getElementById("searchbutton").click();
   }
 });
 
@@ -29,35 +29,23 @@ document.getElementById('searchbutton').onclick =  () => {
         }).catch((err) => console.log("Sorry, no results found " + err));
 
         document.getElementById("urllist").innerHTML ="";
-        //document.getElementById("responsesize").innerHTML ="<p>Sorry, no results found</p>";
         document.getElementById("responsesize").style = "color: crimson;";
 }
 
-
 /*AutoComplete*/
-
 /* import data from local txt file */
-
   var stringData = $.ajax({
     mode: 'cors',
     url: "autocomplete.txt",
     async: false
- }).responseText;
+  }).responseText;
 
 /* split values by new line */
-
 var stringArray = stringData.split("\n");
-// alert("Data Loaded: " + stringData);
-
-
 // Using Array.filter to get unique values
 const useFilter = stringArray => {
     return stringArray.filter((value, index, self) => {
       return self.indexOf(value) === index;
     });
   };
-   
   var result = useFilter(stringArray);
-  
-
-
