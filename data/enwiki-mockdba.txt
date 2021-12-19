@@ -1,0 +1,13 @@
+*PAGE:https://en.wikipedia.org/wiki/Colombia
+ColombiaTitle
+colombia
+colombia
+colombia
+notarealword
+notarealword
+*PAGE:https://en.wikipedia.org/wiki/IronTitle
+IronTitle
+iron
+colombia
+notarealword
+notarealword
