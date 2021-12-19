@@ -186,30 +186,5 @@ class SearchEngineTest {
         assertEquals(searchEngineMock.search("colombia%20notarealword or iron").get(0), colombiaPage);
         assertEquals(searchEngineMock.search("colombia%20notarealword or iron").get(1), ironPage);
     }
-
-
-    public static void main(String[] args) {
-        var searchEngineMock = new SearchEngine("data/enwiki-mockdba.txt");
-
-        WebPage colombiaPage = new WebPage("title", "url");
-        WebPage ironPage = new WebPage("title", "url");
-
-        List<String> testList = new ArrayList<String>();
-        testList.add("colombia");
-        testList.add("iron");
-
-        //Case Colombia Iron -> mockdba.txt database
-        Word colombiaWord = searchEngineMock.getIndexer().getWord("colombia");
-        List<WebPage> webPageList = new ArrayList<WebPage>();
-        webPageList.addAll(colombiaWord.getAllWebPages());
-        for (WebPage webPage : webPageList) {
-            if (webPage.getTitle().equals("ColombiaTitle")) {
-                colombiaPage = webPage;
-            }
-            if (webPage.getTitle()=="IronTitle") {
-                ironPage = webPage;
-            }
-        }
-    }
 }
 
