@@ -1,5 +1,7 @@
 package searchengine;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -18,11 +20,13 @@ public class SearchEngine {
     private Indexer indexer;
     private String originalSearchInput;
     private Stemmer stemmer;
+    private List<String> stopWords;
 
     public SearchEngine(String filename) {
         try {
             indexer = new Indexer(filename);
             stemmer = new Stemmer();
+            stopWords = Files.readAllLines(Paths.get("data/stop-words.txt"));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -131,8 +135,9 @@ public class SearchEngine {
     * @param  word It is a word from the inverted index.
     * @return Returns the resulting string
     */
-    public String cleanWord(String word){
-        return stemmer.stemWord(word.replaceAll("[.,!\\?´¨^*$:;{&¤}/+á¼ï()»î±î¿ä]", "").toLowerCase());
+    public String cleanWord(String word) {
+        var wordTrimmedLowerCase = word.replaceAll("[.,!\\?´¨^*$:;{&¤}/+á¼ï()»î±î¿ä]", "").toLowerCase();
+        return stopWords.contains(wordTrimmedLowerCase) ? "" : stemmer.stemWord(wordTrimmedLowerCase);
     }
 
     // Getters and Setters
