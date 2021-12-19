@@ -5,20 +5,23 @@ import searchengine.dba.WebPage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.TestInstance.Lifecycle;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 @TestInstance(Lifecycle.PER_CLASS)
 class WebPageTest {
-    String title1, title2;
-    
-    @BeforeEach                                         
-    void setUp() {
-        title1 = "Example1";
-        title2 = "Example2";
+
+    @Test
+    @DisplayName("The class Constructor should asign the first String parameter to the title field and the second to url field")
+    void testConstructor() {
+        var webPage2 = new WebPage("Example1", "https:www.example.com");
+        assertEquals(webPage2.getTitle(),"Example1","Title should be equal to Example1");
+        assertEquals(webPage2.getURL(),"https:www.example.com","URL should be equal to https:www.example.com");
     }
+
+}
+
 
     /* Function doesn't exist anymore 
     @Test
@@ -32,13 +35,3 @@ class WebPageTest {
         assertEquals(webPage1.contains("This is"),false,"The Title is NOT part of the content ArrayList and should return false");
     }
     */
-
-    @Test
-    @DisplayName("The class Constructor should correctly split the arrayList received as parameter in title and content")
-    void testConstructor() {
-        var webPage2 = new WebPage(title2, "https:www.example.com");
-        assertEquals(webPage2.getTitle(),"Example2","Title should be equal to Example2");
-        assertEquals(webPage2.getURL(),"https:www.example.com","URL should be equal to https:www.example.com");
-    }
-
-}

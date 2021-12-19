@@ -1,0 +1,12 @@
+*PAGE:https://en.wikipedia.org/wiki/Page1
+ExampleTitle1
+pork
+run
+eat
+*PAGE:https://en.wikipedia.org/wiki/PageEmpty
+ExampleEmpty
+*PAGE:https://en.wikipedia.org/wiki/Page2
+ExampleTitle2
+pork
+pork
+bat

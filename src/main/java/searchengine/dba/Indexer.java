@@ -11,27 +11,27 @@ import java.util.List;
 import java.util.Map;
 
 public class Indexer {
-    private List<WebPage> pages = new ArrayList<>();
     private Map<String,Word> invertedIndex = new HashMap<String,Word>();
     private Stemmer stemmer = new Stemmer();
     private List<String> stopWords;
 
     public Indexer(String filename){
         try {
-            long start = System.currentTimeMillis();
             stopWords = Files.readAllLines(Paths.get("data/stop-words.txt"));
+            long start = System.currentTimeMillis(); //Manual BenchMarking
             fetchDatabase(filename);
-            long finish = System.currentTimeMillis();
-            long timeElapsed = finish - start;
+            long timeElapsed = System.currentTimeMillis() - start; //Manual BenchMarking
             System.out.println("Took " + timeElapsed/1000 + " seconds to complete the Index");
         } catch (IOException e) {
-            System.out.println("Indexer Error");
             e.printStackTrace();
         }
     }
 
-/** 
-   * Retrieve all lines in database starting with "*PAGE" */  
+    /** 
+    * fetchDatabase iterates into every line of the database file separating them by webpage by starting line "*PAGE"
+    * If the page has content, updates invertedIndex hashmap using updateInvertedIndex function
+    * @param  filename String containing the path of the database txt file
+    */
     public void fetchDatabase(String filename) throws IOException{
         try(BufferedReader bufferReader = new BufferedReader(new FileReader(filename))) 
         {
@@ -48,7 +48,7 @@ public class Indexer {
                         condition = (nextLine != null) && (!(nextLine.startsWith("*PAGE")));
                     }
                     if (content.size()>1) {
-                        createInvertedIndex(new WebPage(content.get(0), line.substring(6)), content.subList(1, content.size()));
+                        updateInvertedIndex(new WebPage(content.get(0), line.substring(6)), content.subList(1, content.size()));
                         pageCounter++;
                     } else {
                         System.out.println("page " + line.substring(6) + " has not been indexed");
@@ -65,12 +65,16 @@ public class Indexer {
         }
     }
 
-/** 
-   * invertedIndex maps words from webPage using addOccurence */  
-    public void createInvertedIndex(WebPage webPage, List<String> content) {
+    /** 
+    * updateInvertedIndex iterates into the content of a webpage and creates or updates a record 
+    * in the invertedIndex HashMap mapping each string in the context with the Word object (creating a new one or updating the existent one)
+    * @param  content List of String containing the content of the specific webpage
+    * @param  webPage Represents the webpage stored in a database.
+    */
+    public void updateInvertedIndex(WebPage webPage, List<String> content) {
         try {
             for (String word : content) {
-                var reformattedWord = clean(word);
+                var reformattedWord = cleanWord(word);
                 if (reformattedWord.length()>0) {
                     if (invertedIndex.containsKey(reformattedWord)) {
                         invertedIndex.get(reformattedWord).addOcurrence(webPage);
@@ -80,13 +84,19 @@ public class Indexer {
                 }
             }
         } catch (Exception e) {
-            System.out.println("error in createInvertedIndex");
+            System.out.println("error in updateInvertedIndex");
             System.out.println(e.getMessage());
         }
     }
 
-    public String clean(String word) {
-        var wordTrimmedLowerCase = word.replaceAll("[.,!\\?´¨^*:;{&¤}+á¼ï»î±î¿ä]", "").toLowerCase();
+    /**
+    * Remove all signs or punctuation marks from an input string, transforms it to lowercase and reduces it to a root form (Stemming).
+    * Also, checks if the resulting string is not contained in the list of "Stop Words". If it is contained, then returns null
+    * @param  word It is a word from the inverted index.
+    * @return Returns the resulting string or null (if the word is considered an "Stop Word")
+    */
+    public String cleanWord(String word) {
+        var wordTrimmedLowerCase = word.replaceAll("[.,!\\?´¨^*$:;{&¤}/+á¼ï()»î±î¿ä]", "").toLowerCase();
         return stopWords.contains(wordTrimmedLowerCase) ? "" : stemmer.stemWord(wordTrimmedLowerCase);
     }
 
@@ -94,7 +104,7 @@ public class Indexer {
         return invertedIndex.get(word);
     }
 
-    public  List<WebPage> getAllPages() {
-        return pages;
+    public Map<String,Word> getInvertedIndex(){
+        return invertedIndex;
     }
 }
