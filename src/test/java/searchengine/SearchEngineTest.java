@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -20,64 +19,52 @@ import org.junit.jupiter.api.TestInstance;
 class SearchEngineTest {
     String filename;
     String searchInput1, searchInput2;
-
-    //String title1, title2;
-    //WebPage webPage1,webPage2;
+    SearchEngine searchEngine;
     
     @BeforeEach                                         
     void setUp() {
-        //SearchEngine searchengine1 = new SearchEngine("Example one");
-        //SearchEngine searchengine2 = new SearchEngine("Example two");
+        searchEngine = new SearchEngine("data/enwiki-tiny.txt");
     }
     
     @Test
-    @DisplayName("splittingInput should split the input %20 between words")
-    void testsplittingInput() {
-        
-        var searchengine1 = new SearchEngine("data/enwiki-tiny.txt");
-        searchengine1.setSearchInput("Danish%20university");
-        searchengine1.splittingInput();
-        List<List<String>> testList = new ArrayList();
-        List<String> testList2 = new ArrayList();
+    @DisplayName("splitInput should split the input %20 between words")
+    void testsplitInput() {
+        List<List<String>> testList = new ArrayList<List<String>>();
+        List<String> testList2 = new ArrayList<String>();
         testList2.add("Danish");
         testList2.add("university");
         testList.add(testList2);
-        assertEquals(searchengine1.getSplittedInput(),testList);
+        assertEquals(searchEngine.splitInput("Danish%20university"),testList);
     }
 
     @Test
-    @DisplayName("splittingInput should split the input by the Or operator between words")
-    void testsplittingInput2() {
-        
-        var searchengine1 = new SearchEngine("data/enwiki-tiny.txt");
-        searchengine1.setSearchInput("Danish or university");
-        searchengine1.splittingInput();
-        List<List<String>> testList = new ArrayList();
-        List<String> testList2 = new ArrayList();
-        List<String> testList3 = new ArrayList();
+    @DisplayName("splitInput should split the input by the Or operator between words")
+    void testsplitInput2() {   
+        List<List<String>> testList = new ArrayList<List<String>>();
+        List<String> testList2 = new ArrayList<String>();
+        List<String> testList3 = new ArrayList<String>();
         testList2.add("Danish");
         testList3.add("university");
         testList.add(testList2);
         testList.add(testList3);
-        assertEquals(searchengine1.getSplittedInput(),testList);
+        assertEquals(searchEngine.splitInput("Danish or university"),testList);
     }
 
 
     @Test
     @DisplayName("getPageScore should calculate the score of the input")
-    void testgetPageScore() {
-        var searchengine1 = new SearchEngine("data/enwiki-tiny.txt");
+    void testGetPageScore() {
         WebPage testWebPage = new WebPage("Danish universities", "www.wikipedia.com");
         WebPage testWebPage2 = new WebPage("Danish universities", "www.wikipedia.com");
         Word testWord = new Word("danish", testWebPage);
+        //First Case
         testWord.addOcurrence(testWebPage2);
-        
-        searchengine1.getPageScore(testWord, testWebPage);
-        assertEquals(searchengine1.getPageScore(testWord, testWebPage), 0.5);
-
+        searchEngine.getPageScore(testWord, testWebPage);
+        assertEquals(searchEngine.getPageScore(testWord, testWebPage), 0.5);
+        //Second Case
         testWord.addOcurrence(testWebPage2);
         testWord.addOcurrence(testWebPage2);
-        assertEquals(searchengine1.getPageScore(testWord, testWebPage), 0.25);
+        assertEquals(searchEngine.getPageScore(testWord, testWebPage), 0.25);
     }
 
     @Test
