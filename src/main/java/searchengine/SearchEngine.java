@@ -34,8 +34,9 @@ public class SearchEngine {
     * @return List<WebPage> a List of WebPages in descending order by each Webpage combined Score.
     */
     public List<WebPage> search(String searchTerm) {
+        //Some manual benchmarking
         long start = System.currentTimeMillis();
-
+        //End of manual benchmarking
         originalSearchInput = searchTerm;
         List<List<String>> splittedInput = splitInput(searchTerm);
         HashMap<WebPage, Double> unorderedHashMap = compileHashMaps(splittedInput);
@@ -43,17 +44,18 @@ public class SearchEngine {
             .sorted(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()))
             .map(Map.Entry::getKey)
             .collect(Collectors.toList());
-
+        //Some manual benchmarking
         long finish = System.currentTimeMillis();
         long timeElapsed = finish - start;
         System.out.println("Took " + timeElapsed + " miliseconds to run the  search");
-
+        //End of manual benchmarking
         return result;
     }
 
     /**
-    * Splits and stores input string by OR operator in splittedByOr List,
-    and then it splits the elements in splittedByOr List with %20.*/  
+    * Splits the input string by OR operator and then by space (%20).
+    * @returnList <List<String>> a List of List of input strings (First level -> OR Logic; Second level -> AND Logic).
+    */
     public List<List<String>> splitInput(String searchTerm) {
         var splittedInput = new ArrayList<List<String>>();
         String[] splittedByOr = searchTerm.split("(?i) or ");
@@ -64,7 +66,7 @@ public class SearchEngine {
     }
 
     /**
-    * It compiles multiple hashmaps obtained in getScoreMapWithANDlogic using getScoreMapWithORlogic
+    * It compiles multiple hashmaps obtained in createANDLogicMap using mergeORLogicMaps
     * @return It returns a hashmap that relates webpages with their corresponding score after being merged.
     * @param listOfTerms A list of lists of searchTerms
     */
@@ -142,5 +144,8 @@ public class SearchEngine {
     }
     public String getSearchInput(){
         return originalSearchInput;
+    }
+    public Indexer getIndexer(){
+        return indexer;
     }
 }
